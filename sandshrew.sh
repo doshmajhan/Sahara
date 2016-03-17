@@ -7,10 +7,12 @@
 zone="/etc/bind/dosh.cloud"
 regzone="dosh.cloud"
 file=""
+serial=$(sed '3!d' $zone)
 
-# Function to deploy pre-written script to beacons
-# Arguments - file to deploy
-# Returns - nothing
+## Function to deploy pre-written script to beacons
+##
+## Arguments - file to deploy
+## Returns - nothing
 deploy_file(){
     # Number of lines to write
     num=$(cat $file | wc -l)
@@ -29,9 +31,10 @@ deploy_file(){
 
 }
 
-# Interactive shell to let user enter commands by hand
-# Arguments - none
-# Returns - none
+## Interactive shell to let user enter commands by hand
+##
+## Arguments - none
+## Returns - none
 interactive(){
     # Reset file
     sed -i '11,/-End/d' $zone
@@ -59,8 +62,17 @@ interactive(){
 
 }
 
-# User is done entering commands, reloading the zone file
+
+                                                        
+## User is done entering commands, reload the zone file   
+## as well as updating the serial number to show a change 
+##                                                                
+## Arguments - none                      
+## Returns - none
 rollout(){
+    prev=$serial
+    let serial=serial+1
+    sed -i "3s/$prev/$serial/" $zone
     roll=$(rndc reload $regzone; rndc reconfig)
 }
 
