@@ -24,6 +24,8 @@ deploy_file(){
     # Loop through script and create TXT records for each command
     x=1
     while read LINE; do
+        # Encode the command
+        LINE=$(echo $LINE | base64)
         echo "$x       IN  TXT \"$LINE\"" >> $zone
         let x=x+1
     done < "$file"
@@ -54,6 +56,8 @@ interactive(){
         elif [[ $input != '' ]]; then
             # Update number of commands and add new command
             sed -i "11s/$last/$x/" $zone
+            # Encode the command
+            input=$(echo $input | base64)
             echo "$x       IN  TXT \"$input\"" >> $zone
             last=$x
             let x=x+1

