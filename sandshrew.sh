@@ -46,7 +46,9 @@ interactive(){
     # Prompt to enter commands
     while true; do
         read -p "[shrew] > " input
-        if [[ $input != '' ]]; then
+        if [[ $input == "exit" ]]; then
+            exit
+        elif [[ $input != '' ]]; then
             # Update number of commands and add new command
             sed -i '10s/$last/$x/' $zone
             echo "$x       IN  TXT \"$input\"" >> $zone
@@ -62,7 +64,6 @@ main(){
 
     # Print title and ascii art
     cat ascii.txt
-    echo
     cat title.txt
     echo
     if [ -n "$1" ]; then 
