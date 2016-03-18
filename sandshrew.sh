@@ -34,6 +34,7 @@ deploy_file(){
         echo "$x       IN  TXT \"$LINE\"" >> $zone
         let x=x+1
     done < "$file"
+    rollout
     exit 
 
 }
@@ -102,4 +103,4 @@ main(){
     fi
 }
 
-main
+main $1
