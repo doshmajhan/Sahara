@@ -12,6 +12,7 @@ print "Listening on port %d" % bind_port
 
 #Decode the header of the packet
 def decode_header(query):
+    #Read the data from the header, 12 bytes in total
     queryId, flags, qCount, ansCount, authCount, addCount  = struct.unpack('!HHHHHH', query[:12])
     qr = flags >> 15
     opcode = (flags >> 11) & 0xf
@@ -32,15 +33,31 @@ def decode_header(query):
 
     return qCount
 
+#Decode the name of the server being queried
+def decode_name(query, offset):
+    names = []
+    while True:
+        #Get the length of the qName
+        length, = struct.unpack_from("!B", query, offset)
+        offset += 1
+        if length == 0:
+            return names, offset
+        #Read the name from the data and store
+        names += [struct.unpack_from("!%ds" % length, query, offset)]
+        offset += length
+
 #Decode the variable length question body
 def decode_question (query, offset):
     qFormat = struct.Struct("!HH")
     qEntries = []
-    qCount = decode_header(query
+    qCount = decode_header(query)
+    x = 0
+    #Read and decode each question
     while x < qCount:
-        qtype, qclass = qFormat.unpack_from(query_body, offset)
-        offset += 2
-        qEntries += [{"qType": qtype, "qClass": qclass}]
+        qname, offset = decode_name(query, offset)
+        qtype, qclass = qFormat.unpack_from(query, offset)
+        offset += 4
+        qEntries += [{"qName": qname, "qType": qtype, "qClass": qclass}]
         x+=1
 
     return qEntries  
@@ -48,8 +65,6 @@ def decode_question (query, offset):
 #Handle a DNS Query
 def handle_request(request):
 
-    print "Recieved: %s" % request
-    print "TRYING TO DECODE"
     entries = decode_question(request, 12)
     print entries
 
