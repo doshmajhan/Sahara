@@ -39,6 +39,7 @@ class DNSQuery:
         #Read the data from the header, 12 bytes in total
         self.qID, flags, self.qCount, self.ansCount, \
         self.authCount, self.addCount  = struct.unpack('!HHHHHH', query[:12])
+        print flags
         qr = flags >> 15
         opcode = (flags >> 11) & 0xf
         aa = (flags >> 10) & 0x1
@@ -114,20 +115,20 @@ class DNSResponse:
         qID - the queryID of the origina query
     """
     def create_packet(self, url, qID):
-        self.packet = struct.pack(">H", qID) # Q ID
-        self.packet += struct.pack(">H", 417) # Flags
-        self.packet += struct.pack(">H", 1) # Questions
-        self.packet += struct.pack(">H", 1) # Answers
-        self.packet += struct.pack(">H", 1) # Authorities
-        self.packet += struct.pack(">H", 0) # Additional
+        self.packet = struct.pack("!H", qID) # Q ID
+        self.packet += struct.pack("!H", 34176) # Flags
+        self.packet += struct.pack("!H", 1) # Questions
+        self.packet += struct.pack("!H", 1) # Answers
+        self.packet += struct.pack("!H", 1) # Authorities
+        self.packet += struct.pack("!H", 0) # Additional
         tmp_url = url.split(".")
         for x in tmp_url:
             self.packet += struct.pack("B", len(x)) # Store length of name
             for byte in bytes(x):
                 self.packet += struct.pack("c", byte) # Store each char
         self.packet += struct.pack("B", 0) # Terminate name
-        self.packet += struct.pack(">H", 1) # Q Type
-        self.packet += struct.pack(">H", 1) # Q Class
+        self.packet += struct.pack("!H", 1) # Q Type
+        self.packet += struct.pack("!H", 1) # Q Class
 
 """
     Function to answer a DNS query with the correct record.
