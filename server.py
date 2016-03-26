@@ -106,19 +106,35 @@ class DNSResponse:
         self.addr = addr
         self.packet = None
 
-    def create_packet(self):
-        self.packet = struct.pack("!B", 12049)
+    def create_packet(self, url):
+        self.packet = struct.pack(">H", 12049) # Q ID
+        self.packet += struct.pack(">H", 256) # FLAGS
+        self.packet += struct.pack(">H", 1) # Questions
+        self.packet += struct.pack(">H", 1) # Answers
+        self.packet += struct.pack(">H", 1) # Authorities
+        self.packet += struct.pack(">H", 0) # Additional
+        tmp_url = url.split(".")
+        for x in tmp_url:
+            self.packet += struct.pack("B", len(x)) # Store length of name
+            for byte in bytes(x):
+                self.packet += struct.pack("c", byte) # Store each char
+        self.packet += struct.pack("B", 0) # Terminate name
+        self.packet += struct.pack(">H", 1) # Q Type
+        self.packet += struct.pack(">H", 1) # Q Class
 
+        
 
 """
     Function to answer a DNS query with the correct record.
 
-    addr - the address to send the response to.
+    addr - the address to send the response to
+    server - the socket to send information to
 """
-def send_response(addr):
-    print addr
+def send_response(addr, server):
     response = DNSResponse(addr)
-
+    response.create_packet("www.dosh.cloud")
+    server.sendto(bytes(response.packet), addr)
+    server.close()
 
 """
     Function to handle a DNS query, creating a class
@@ -126,13 +142,14 @@ def send_response(addr):
 
     query - the binary data receieved from the listening socket
     addr - the address the data was received from
+    server - the socket to send information to
 """
-def handle_query(query, addr):
+def handle_query(query, addr, server):
     
     q = DNSQuery()
     q.decode_question(query, 12)
     print q.entries
-    send_response(addr)
+    send_response(addr, server)
 
 
 # Main program to start listening for queries
@@ -141,6 +158,6 @@ if __name__ == "__main__":
     while True:
         #Accept query and start a new thread
         query, addr = server.recvfrom(8192)
-        query_handler = threading.Thread(target=handle_query, args=(query, addr))
+        query_handler = threading.Thread(target=handle_query, args=(query, addr, server))
         query_handler.start()
 
