@@ -115,7 +115,7 @@ class DNSResponse:
     """
     def create_packet(self, url, qID):
         self.packet = struct.pack(">H", qID) # Q ID
-        self.packet += struct.pack(">H", 256) # FLAGS
+        self.packet += struct.pack(">H", 417) # Flags
         self.packet += struct.pack(">H", 1) # Questions
         self.packet += struct.pack(">H", 1) # Answers
         self.packet += struct.pack(">H", 1) # Authorities
@@ -128,7 +128,6 @@ class DNSResponse:
         self.packet += struct.pack("B", 0) # Terminate name
         self.packet += struct.pack(">H", 1) # Q Type
         self.packet += struct.pack(">H", 1) # Q Class
-        
 
 """
     Function to answer a DNS query with the correct record.
@@ -141,7 +140,6 @@ def send_response(addr, server, dnsQuery):
     response = DNSResponse(addr)
     response.create_packet("dosh.cloud", dnsQuery.qID)
     server.sendto(bytes(response.packet), addr)
-    server.close()
 
 """
     Function to handle a DNS query, creating a class
