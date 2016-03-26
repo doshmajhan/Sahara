@@ -106,8 +106,15 @@ class DNSResponse:
         self.addr = addr
         self.packet = None
 
-    def create_packet(self, url):
-        self.packet = struct.pack(">H", 12049) # Q ID
+    """
+        Packs data into a binary struct to send as a
+        response to the original query. 
+
+        url - the address of the answer
+        qID - the queryID of the origina query
+    """
+    def create_packet(self, url, qID):
+        self.packet = struct.pack(">H", qID) # Q ID
         self.packet += struct.pack(">H", 256) # FLAGS
         self.packet += struct.pack(">H", 1) # Questions
         self.packet += struct.pack(">H", 1) # Answers
@@ -121,7 +128,6 @@ class DNSResponse:
         self.packet += struct.pack("B", 0) # Terminate name
         self.packet += struct.pack(">H", 1) # Q Type
         self.packet += struct.pack(">H", 1) # Q Class
-
         
 
 """
@@ -129,10 +135,11 @@ class DNSResponse:
 
     addr - the address to send the response to
     server - the socket to send information to
+    dnsQuery - the class represnting the query being answered
 """
-def send_response(addr, server):
+def send_response(addr, server, dnsQuery):
     response = DNSResponse(addr)
-    response.create_packet("www.dosh.cloud")
+    response.create_packet("dosh.cloud", dnsQuery.qID)
     server.sendto(bytes(response.packet), addr)
     server.close()
 
@@ -149,7 +156,7 @@ def handle_query(query, addr, server):
     q = DNSQuery()
     q.decode_question(query, 12)
     print q.entries
-    send_response(addr, server)
+    send_response(addr, server, q)
 
 
 # Main program to start listening for queries
