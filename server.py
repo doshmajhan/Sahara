@@ -1,6 +1,10 @@
 """
-    Python server to handle DNS requests
+    Custom python server to handle DNS requests and 
+    create custom responses to queries. Used primarily 
+    to control DNS Beacons.
+
     Authors: Dosh & JRoc
+    github.com/doshmajhan/Sandshrew
 """
 import socket, threading, base64, struct
 
@@ -10,6 +14,9 @@ server.bind(('', bind_port))
 
 print "Listening on port %d" % bind_port
 
+"""
+    Class to represent a DNS Query and functions decode it
+"""
 class DNSQuery:
     def __init__(self):
         self.qID = None
@@ -21,7 +28,13 @@ class DNSQuery:
         self.entries = []
         self.qCount = None
     
-    #Decode the header of the packet
+    """
+        Decode the header of a DNS packet. First unpacks 
+        the data in certain sections at a time, then performs 
+        bitwise operations to get each field.
+
+        query - the binary data received from the listening socket
+    """
     def decode_header(self, query):
         #Read the data from the header, 12 bytes in total
         self.qID, flags, self.qCount, self.ansCount, \
@@ -41,34 +54,53 @@ class DNSQuery:
                (qr, opcode, aa, tc, rd, ra, z, ad, cd, rcode)
 
         print "[# Questions: %d] [# Ans RR: %d] [# Auth RR: %d] [# Add RR: %d]" % \
-                (qCount, ansCount, authCount, addCount)
+                (self.qCount, self.ansCount, self.authCount, self.addCount)
 
-        return qCount
+    """
+        Decode the domain name sent in the query, unpack
+        the first bit that tells the length of the name.
+        Then continue to read each char until the terminating zero.
 
-    #Decode the name of the server being queried
+        query - the binary data received from the listening socket
+        offset - the number of bits to offset by when unpacking the query
+
+        returns - the new offset
+    """
     def decode_name(self, query, offset):
         while True:
             #Get the length of the qName
             length, = struct.unpack_from("!B", query, offset)
             offset += 1
             if length == 0:
-                return names, offset
+                return offset
             #Read the name from the data and store
             self.names += [struct.unpack_from("!%ds" % length, query, offset)]
             offset += length
 
-    #Decode the variable length question body
+    """
+        Decode the question section of the DNS Query. 
+        Loop for the number represented by qCount, and unpack
+        the data, calling decode_name each time. Creates a new entry
+        consisting of the name, type and class.
+
+        query - the binary data received from the listening socket
+        offset - the number of bits to offset by when unpacking the query
+    """
     def decode_question(self, query, offset):
         qFormat = struct.Struct("!HH")
-        self.qCount = decode_header(query)
+        self.decode_header(query)
 
         #Read and decode each question
-        for x in range(qCount):
-            qname, offset = decode_name(query, offset)
+        for x in range(self.qCount):
+            offset = self.decode_name(query, offset)
             qtype, qclass = qFormat.unpack_from(query, offset)
             offset += 4
-            self.qEntries += [{"qName": qname, "qType": qtype, "qClass": qclass}]
+            self.entries += [{"qName": self.names, "qType": qtype, "qClass": qclass}]
 
+
+"""
+    Class to represent a DNS Response and functions to build it
+"""
 class DNSResponse:
     def __init__(self, addr):
         self.addr = addr
@@ -78,22 +110,37 @@ class DNSResponse:
         self.packet = struct.pack("!B", 12049)
 
 
-#Handle a DNS Query
-def handle_request(request, addr):
-    
-    query = DNSQuery()
-    query.decode_question(request, 12)
-    print query.entries
+"""
+    Function to answer a DNS query with the correct record.
 
-# Send response to query
-def send_respone(addr):
+    addr - the address to send the response to.
+"""
+def send_response(addr):
+    print addr
     response = DNSResponse(addr)
+
+
+"""
+    Function to handle a DNS query, creating a class
+    for it and calling the necessary functions.
+
+    query - the binary data receieved from the listening socket
+    addr - the address the data was received from
+"""
+def handle_query(query, addr):
     
+    q = DNSQuery()
+    q.decode_question(query, 12)
+    print q.entries
+    send_response(addr)
+
+
+# Main program to start listening for queries
 if __name__ == "__main__":
     
     while True:
         #Accept query and start a new thread
-        request, addr = server.recvfrom(8192)
-        request_handler = threading.Thread(target=handle_request, args=(request, addr))
-        request_handler.start()
+        query, addr = server.recvfrom(8192)
+        query_handler = threading.Thread(target=handle_query, args=(query, addr))
+        query_handler.start()
 
