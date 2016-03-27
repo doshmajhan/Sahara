@@ -39,7 +39,6 @@ class DNSQuery:
         #Read the data from the header, 12 bytes in total
         self.qID, flags, self.qCount, self.ansCount, \
         self.authCount, self.addCount  = struct.unpack('!HHHHHH', query[:12])
-        print flags
         qr = flags >> 15
         opcode = (flags >> 11) & 0xf
         aa = (flags >> 10) & 0x1
@@ -51,11 +50,14 @@ class DNSQuery:
         cd = (flags >> 4) & 0x1
         rcode = flags & 0xf
         
+        # print out flags, move in function later
+        """
         print "[QR %d] [OPC %d] [AA %d] [TC %d] [RD %d] [RA %d] [Z %d] [AD %d] [CD %d] [RCODE %d]" % \
                (qr, opcode, aa, tc, rd, ra, z, ad, cd, rcode)
 
         print "[# Questions: %d] [# Ans RR: %d] [# Auth RR: %d] [# Add RR: %d]" % \
                 (self.qCount, self.ansCount, self.authCount, self.addCount)
+        """
 
     """
         Decode the domain name sent in the query, unpack
@@ -158,9 +160,11 @@ class DNSResponse:
     dnsQuery - the class represnting the query being answered
 """
 def send_response(addr, server, dnsQuery):
+    print "[*] Sending response"
     response = DNSResponse(addr)
     response.create_packet("dosh.cloud", dnsQuery.qID)
     server.sendto(bytes(response.packet), addr)
+    print "[*] Response sent"
 
 """
     Function to handle a DNS query, creating a class
@@ -172,6 +176,7 @@ def send_response(addr, server, dnsQuery):
 """
 def handle_query(query, addr, server):
     
+    print "[*] Recieved query"
     q = DNSQuery()
     q.decode_question(query, 12)
     print q.entries
