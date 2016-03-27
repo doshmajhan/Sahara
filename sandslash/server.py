@@ -3,7 +3,7 @@
     the DNS server and handle queries/repsonses
     @author Dosh, JRoc
 """
-import socket, threading
+import socket, threading, sys
 import query
 
 """
@@ -12,9 +12,10 @@ import query
     port - the port number to bind to
 """
 class Server:
-    def __int__(self, port):
+    def __init__(self, port):
         self.port= port
         self.sock = None
+    
 
     """
         Function to start the server with the information
@@ -25,10 +26,13 @@ class Server:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind(('', self.port))
 
-        print "Listening on port %d" % self.port
-
         while True:
             #Accept query and start a new thread
             q, addr = self.sock.recvfrom(8192)
             query_handler = threading.Thread(target=query.handle_query, args=(q, addr, self.sock))
-            query_handler.start()
+            query_handler.daemon=True
+            try:
+                query_handler.start()
+            except (KeyboardInterrupt, SystemExit):
+                self.sock.close()
+                sys.exit()
