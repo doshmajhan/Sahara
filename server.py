@@ -129,6 +129,26 @@ class DNSResponse:
         self.packet += struct.pack("B", 0) # Terminate name
         self.packet += struct.pack("!H", 1) # Q Type
         self.packet += struct.pack("!H", 1) # Q Class
+        self.create_answer(url)
+
+    """
+        Creates the answer section of the DNS response
+
+        record - the record to include in the name section
+    """
+    def create_answer(self, record):
+        tmp_record = record.split(".")
+        for x in tmp_record:
+            self.packet += struct.pack("B", len(x)) # Store length of name
+            for byte in bytes(x):
+                self.packet += struct.pack("c", byte) # Store each char
+        self.packet += struct.pack("B", 0) # Terminate name
+        self.packet += struct.pack("!H", 1) # Type
+        self.packet += struct.pack("!H", 1) # Class
+        self.packet += struct.pack("B", 1) # TTL
+        self.packet += struct.pack("B", 4) # RDLENGTH
+        self.packet += struct.pack("L", 2165670612)  # RDATA, should be IP address from A record
+        
 
 """
     Function to answer a DNS query with the correct record.
