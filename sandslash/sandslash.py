@@ -119,7 +119,7 @@ class DNSResponse:
         self.packet += struct.pack("!H", 34176) # Flags
         self.packet += struct.pack("!H", 1) # Questions
         self.packet += struct.pack("!H", 1) # Answers
-        self.packet += struct.pack("!H", 1) # Authorities
+        self.packet += struct.pack("!H", 0) # Authorities
         self.packet += struct.pack("!H", 0) # Additional
         tmp_url = url.split(".")
         for x in tmp_url:
@@ -143,11 +143,11 @@ class DNSResponse:
             for byte in bytes(x):
                 self.packet += struct.pack("c", byte) # Store each char
         self.packet += struct.pack("B", 0) # Terminate name
-        self.packet += struct.pack("!H", 1) # Type
-        self.packet += struct.pack("!H", 1) # Class
-        self.packet += struct.pack("B", 1) # TTL
-        self.packet += struct.pack("B", 4) # RDLENGTH
-        self.packet += struct.pack("L", 2165670612)  # RDATA, should be IP address from A record
+        self.packet += struct.pack("!H", 1) # Type 2 bytes
+        self.packet += struct.pack("!H", 1) # Class 2 bytes
+        self.packet += struct.pack("!I", 1) # TTL 4 bytes
+        self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
+        self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
         
 
 """

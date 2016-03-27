@@ -1,9 +1,8 @@
 #Sandshrew
-Multiple scripts that come together to make a botnet over DNS
+Shell scripts that manipulate a BIND nameserver to store commands in a text record. As well as a
+beacon shell script that will query the name server and read the text record and exectute the
+commands on the system
 
-####beacon.sh
-The script that will reside on the users machine, making callbacks to the DNS server and
-executing commands retrieved from the server.
-
-####sandshrew.sh
-Program that allows you to enter a script to be pushed to the beacons, or enter commands manually.
+#Sandslash
+Custom python DNS server to handle queries from beacons and send responses back contain the
+commands/information for the beacon to decode. Server is abstracted into a class for flexibility.
