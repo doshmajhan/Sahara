@@ -63,8 +63,8 @@ class DNSResponse:
     dnsQuery - the class represnting the query being answered
 """
 def send_response(addr, server, dnsQuery):
-    print "[*] Sending response"
+    print "Sending response"
     response = DNSResponse(addr)
-    response.create_packet("dosh.cloud", dnsQuery.qID)
+    response.create_packet("doshcloud.com", dnsQuery.qID)
     server.sendto(bytes(response.packet), addr)
-    print "[*] Response sent"
+    print "Response sent"

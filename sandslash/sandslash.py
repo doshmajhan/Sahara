@@ -26,7 +26,8 @@ def start_prompt():
               
         if cmd == "start":
             s = start_server(port)
-
+        if cmd == "exit":
+            sys.exit()
         split_cmd = cmd.split(" ")
         if split_cmd[0] == "port":
             port = int(split_cmd[1])

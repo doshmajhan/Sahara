@@ -16,6 +16,7 @@ class DNSQuery:
         self.authCount = None
         self.addCount = None
         self.names = []
+        self.fullNames = []
         self.entries = []
         self.qCount = None
 
@@ -61,15 +62,22 @@ class DNSQuery:
         returns - the new offset
     """
     def decode_name(self, query, offset):
+        tmp = []    # tmp list to join names
         while True:
             #Get the length of the qName
             length, = struct.unpack_from("!B", query, offset)
             offset += 1
             if length == 0:
-                return offset
+                break
             #Read the name from the data and store
             self.names += [struct.unpack_from("!%ds" % length, query, offset)]
             offset += length
+       
+        for x in self.names:
+            tmp += [x[0]]
+        self.fullNames += ['.'.join(tmp)]
+
+        return offset
 
     """
         Decode the question section of the DNS Query.
@@ -83,13 +91,14 @@ class DNSQuery:
     def decode_question(self, query, offset):
         qFormat = struct.Struct("!HH")
         self.decode_header(query)
-
+        i = 0
         #Read and decode each question
         for x in range(self.qCount):
             offset = self.decode_name(query, offset)
             qtype, qclass = qFormat.unpack_from(query, offset)
             offset += 4
-            self.entries += [{"qName": self.names, "qType": qtype, "qClass": qclass}]
+            self.entries += [{"qName": self.fullNames[i], "qType": qtype, "qClass": qclass}]
+            i+=1
 
 """
     Function to handle a DNS query, creating a class
@@ -101,8 +110,11 @@ class DNSQuery:
 """
 def handle_query(query, addr, server):
 
-    print "[*] Recieved query"
+    print ""
+    print "Recieved query"
     q = DNSQuery()
     q.decode_question(query, 12)
-    print q.entries
+    e = q.entries[0]
+    print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
+
     answer.send_response(addr, server, q)
