@@ -2,7 +2,7 @@
     File containing classes and functions to handle a DNS Query
     @author Dosh, JRoc
 """
-import struct
+import struct, sqlite3
 import answer
 """
     Class to represent a DNS query
@@ -19,6 +19,7 @@ class DNSQuery:
         self.fullNames = []
         self.entries = []
         self.qCount = None
+        self.qType = None
 
     """
         Decode the header of a DNS packet. First unpacks
@@ -95,18 +96,19 @@ class DNSQuery:
         #Read and decode each question
         for x in range(self.qCount):
             offset = self.decode_name(query, offset)
-            qtype, qclass = qFormat.unpack_from(query, offset)
+            self.qtype, qclass = qFormat.unpack_from(query, offset)
             offset += 4
-            self.entries += [{"qName": self.fullNames[i], "qType": qtype, "qClass": qclass}]
+            self.entries += [{"qName": self.fullNames[i], "qType": self.qtype, "qClass": qclass}]
             i+=1
 
+        
 """
     Function to handle a DNS query, creating a class
     for it and calling the necessary functions.
 
     query - the binary data receieved from the listening socket
     addr - the address the data was received from
-    server - the socket to send information to
+    server - class representing the mini dns server
 """
 def handle_query(query, addr, server):
 
@@ -116,5 +118,5 @@ def handle_query(query, addr, server):
     q.decode_question(query, 12)
     e = q.entries[0]
     print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
-
-    answer.send_response(addr, server, q)
+    txt = True if int(q.qtype) == 16 else False
+    answer.send_response(addr, server, q, txt)

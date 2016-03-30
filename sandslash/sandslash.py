@@ -6,7 +6,7 @@
     @author Dosh, JRoc
     github.com/doshmajhan/Sandshrew
 """
-import threading, sys
+import threading, sys, sqlite3
 import server
 
 """
@@ -16,22 +16,34 @@ import server
 def start_prompt():
     port = 53   # Default value
     cmd = ""
-
+    s = server.Server(port)
+    db = sqlite3.connect("sandtomb.db")
+    c = db.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS commands
+                    (name TEXT, cmd TEXT)''')
+    db.commit()
     while True:
         try:
             cmd = raw_input("[*] ")
         except (KeyboardInterrupt, SystemExit):
             print ""
             sys.exit()
-              
-        if cmd == "start":
+        
+        cmd = cmd.split(" ")
+        if cmd[0] == "start":  # starting server
             s = start_server(port)
-        if cmd == "exit":
+        elif cmd[0] == "exit":   # shutting server down
             sys.exit()
-        split_cmd = cmd.split(" ")
-        if split_cmd[0] == "port":
-            port = int(split_cmd[1])
-         
+
+        elif cmd[0] == "port":  # defining port to listen on
+            port = int(cmd[1])
+
+        elif cmd[1] == "=":     # defining new command to store
+            name = cmd[0]
+            newCmd = ' '.join(cmd[2::])
+            s.add_command(name, newCmd, db)
+        elif cmd[0] == "load":  # load defined command into server
+            s.load_command(cmd[1], db)
 """
     Function to handle the start command.
     Starts server and returns the server object created

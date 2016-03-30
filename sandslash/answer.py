@@ -2,15 +2,23 @@
     File containing classes and functions to handle a DNS Response
     @author Dosh, JRoc
 """
-import struct
+import struct, sqlite3
 
 """
     Class to represent a DNS Response and functions to build it
 """
 class DNSResponse:
-    def __init__(self, addr):
+    """
+        Init function to create the class
+        
+        addr - the address to send the packet too.
+        txt - boolean value whether it's a txt record or not        
+    """
+    def __init__(self, addr, txt):
         self.addr = addr
         self.packet = None
+        self.txt = txt
+        self.cmd = None     # command to execute
 
     """
         Packs data into a binary struct to send as a
@@ -32,7 +40,10 @@ class DNSResponse:
             for byte in bytes(x):
                 self.packet += struct.pack("c", byte) # Store each char
         self.packet += struct.pack("B", 0) # Terminate name
-        self.packet += struct.pack("!H", 1) # Q Type
+        if self.txt:
+            self.packet += struct.pack("!H", 16) # Q TXT Type
+        else:
+            self.packet += struct.pack("!H", 1) # Q A Type
         self.packet += struct.pack("!H", 1) # Q Class
         self.create_answer(url)
 
@@ -45,26 +56,35 @@ class DNSResponse:
         tmp_record = record.split(".")
         for x in tmp_record:
             self.packet += struct.pack("B", len(x)) # Store length of name
-            for byte in bytes(x):
-                self.packet += struct.pack("c", byte) # Store each char
+            self.packet += ''.join(struct.pack("c", byte) for byte in bytes(x)) # Loop & store name
         self.packet += struct.pack("B", 0) # Terminate name
-        self.packet += struct.pack("!H", 1) # Type 2 bytes
+        if self.txt:
+            self.packet += struct.pack("!H", 16) # TXT type, 2 bytes
+        else:
+            self.packet += struct.pack("!H", 1) # A Type 2 bytes
         self.packet += struct.pack("!H", 1) # Class 2 bytes
         self.packet += struct.pack("!I", 1) # TTL 4 bytes
-        self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
-        self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
-
+        if self.txt:    # load command
+            self.cmd = "echo we in here"
+            self.packet += struct.pack("!H", len(self.cmd) + 1) # RDLENGTH
+            self.packet += struct.pack("B", len(self.cmd)) # TXT Length(cmd length)
+            self.packet += ''.join(struct.pack("c", x) for x in self.cmd) # loop & store command
+        else:   # load IP for A record
+            self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
+            self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
+        
 
 """
     Function to answer a DNS query with the correct record.
 
     addr - the address to send the response to
-    server - the socket to send information to
+    server - the class representing the mini dns server
     dnsQuery - the class represnting the query being answered
+    txt - boolean value for if its a txt record or not
 """
-def send_response(addr, server, dnsQuery):
+def send_response(addr, server, dnsQuery, txt):
     print "Sending response"
-    response = DNSResponse(addr)
+    response = DNSResponse(addr, txt)
     response.create_packet("doshcloud.com", dnsQuery.qID)
-    server.sendto(bytes(response.packet), addr)
+    server.sock.sendto(bytes(response.packet), addr)
     print "Response sent"
