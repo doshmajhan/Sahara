@@ -3,8 +3,8 @@
     the DNS server and handle queries/repsonses
     @author Dosh, JRoc
 """
-import socket, threading, sys, sqlite3
-import query
+import socket, threading, sys, sqlite3, time
+import query, beacon
 
 """
     Class to represent the base of the DNS server
@@ -12,10 +12,18 @@ import query
     port - the port number to bind to
 """
 class Server:
+    """
+        Initializes a new Server object
+
+        port - the port for the server to listen on
+        
+    """
     def __init__(self, port):
         self.port= port
         self.sock = None
         self.db = None
+        self.commands = []
+        self.beacons = []
 
     """
         Function to start the server with the information
@@ -25,9 +33,7 @@ class Server:
     def start(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind(('', self.port))
-        #self.db = sqlite3.connect('sandtomb.db')
-        #self.db.execute('''CREATE TABLE IF NOT EXISTS commands
-         #                   (name TEXT, cmd TEXT)''')
+        
         while True:
             #Accept query and start a new thread
             q, addr = self.sock.recvfrom(8192)
@@ -61,5 +67,16 @@ class Server:
     def load_command(self, name, db):
         c = db.cursor()
         c.execute("SELECT cmd from commands WHERE name=?", (name,))
-        cmd = c.fetchall()
-        print cmd
+        for cmd in c.fetchall(): self.commands += [str(cmd[0])]
+
+    """
+        Function to add a new beacon to the servers list of active beacons
+
+        addr - the ip addr the beacon signalled from 
+    """
+    def add_beacon(self, addr):
+        t= time.localtime()
+        strtime = (str(t.tm_hour), str(t.tm_min), str(t.tm_sec))
+        strtime = ":".join(strtime) 
+        newB = beacon.Beacon(addr, 0, strtime, (t.tm_hour, t.tm_min, t.tm_sec))
+        self.beacons += [newB]

