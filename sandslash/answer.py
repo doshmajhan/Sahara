@@ -116,6 +116,7 @@ def send_response(addr, server, dnsQuery, txt):
     print "Sending response"
     response = DNSResponse(addr, txt, server)
     response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
+    print addr
     server.sock.sendto(bytes(response.packet), addr)
     if dnsQuery.checkin: server.add_beacon(addr)
     print "Response sent"
