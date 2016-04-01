@@ -98,7 +98,6 @@ class DNSResponse:
         self.packet += struct.pack("B", size) # TXT Length(file length)
         l = f.read(1)
         while l:
-            print l
             self.packet += struct.pack("c", l) # load each byte of the packet
             l = f.read(1)
         f.close()

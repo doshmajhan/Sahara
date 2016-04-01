@@ -87,9 +87,8 @@ def check_status(s):
     (t.tm_sec)-b.realtime[2]) for b in s.beacons]
     d = {}
     for b in s.beacons:
-        print b.tag
         d.update({b.tag : "Alive  | %d hours %d minutes %d seconds ago" % \
-        (stats[b.tag][0], stats[b.tag][1], stats[b.tag][2])})
+        (stats[b.tag][0], stats[b.tag][1], stats[b.tag][2])}) # add beacon to dictionary of entries
     return d
 
 """

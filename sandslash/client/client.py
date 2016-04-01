@@ -32,7 +32,8 @@ class DNSQuery:
     """
     def create_query(self, url):
         self.packet = struct.pack("!H", 13567) # Q ID
-        self.packet += struct.pack("!H", 640) # Flags
+        #640
+        self.packet += struct.pack("!H", 704) # Flags
         self.packet += struct.pack("!H", 1) # Questions
         self.packet += struct.pack("!H", 0) # Answers
         self.packet += struct.pack("!H", 0) # Authorities
@@ -155,7 +156,15 @@ def send_query():
         q.answer = s
         offset = q.decode_question(q.answer, 12)
         q.decode_answer(q.answer, offset)
-        print q.data
+        if q.data != None:
+            break
         
+    # if data is a file, write to file
+    # reconstruct to move into function
+    f = open("test.py", 'wb')
+    for c in q.data:
+        f.write(c)
+    f.close()
+
 if __name__ == '__main__':
     send_query()
