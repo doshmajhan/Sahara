@@ -20,6 +20,8 @@ class DNSQuery:
         self.packet = None
         self.qCount = None
         self.answer = None
+        self.names = []
+        self.data = ""
 
     """
         Packs data into a binary struct to send as a
@@ -110,7 +112,31 @@ class DNSQuery:
             qtype, qclass = qFormat.unpack_from(query, offset)
             offset += 4
             i+=1
+        return offset
+    
+    """
+        Decode the answer section of the DNS Query
 
+        query - the binary data received from the listening socket
+        offset - the number of bits to offset when unpacking the query
+    """
+    def decode_answer(self, query, offset):
+        offset = self.decode_name(query, offset) # decode names in question 
+        aType = struct.unpack_from("!H", query, offset) # decode answer record type
+        offset+=2
+        aClass = struct.unpack_from("!H", query, offset) # decode answer record class
+        offset+=2
+        ttl = struct.unpack_from("!I", query, offset) # decode answer record ttl
+        offset+=4
+        rdlength = struct.unpack_from("!H", query, offset) # decode answer record rd length
+        offset+=2
+        # make functional for all types of records later
+        txtLen = struct.unpack_from("B", query, offset) # decode answer record txt length
+        offset+=1
+        for x in range(0, int(txtLen[0])): # loop and decode the data in the txt section
+            self.data += struct.unpack_from("c", query, offset)[0]
+            offset += 1
+        
 
 """
     Function to send DNS Query to custom server
@@ -127,7 +153,9 @@ def send_query():
     while True:
         s = sock.recv(2048)
         q.answer = s
-        q.decode_question(q.answer, 12)
+        offset = q.decode_question(q.answer, 12)
+        q.decode_answer(q.answer, offset)
+        print q.data
         
 if __name__ == '__main__':
     send_query()
