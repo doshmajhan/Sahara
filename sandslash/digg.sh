@@ -16,6 +16,8 @@ pull(){
     len=$(echo ${#cmd})
     cmd=$(echo ${cmd:1:len-2})
     echo $cmd
+    #test=(echo $cmd | openssl zlib -d)
+    #echo $test
     # Loop through gathering each command and executing
     #:'x=1
     #while [ $x -le $num ]; do

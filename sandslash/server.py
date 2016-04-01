@@ -3,7 +3,7 @@
     the DNS server and handle queries/repsonses
     @author Dosh, JRoc
 """
-import socket, threading, sys, sqlite3, time
+import socket, threading, sys, sqlite3, time, zlib
 import query, beacon
 
 """
@@ -24,6 +24,8 @@ class Server:
         self.db = None
         self.commands = []
         self.beacons = []
+        self.f = False
+        self.fName = None
 
     """
         Function to start the server with the information
@@ -56,7 +58,7 @@ class Server:
         c = db.cursor()
         c.execute("INSERT INTO commands VALUES (?, ?)", (name, cmd))
         db.commit()
-    
+        return db 
 
     """
         Function to load a command into the server that the user made
