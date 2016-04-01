@@ -32,8 +32,7 @@ class DNSQuery:
     """
     def create_query(self, url):
         self.packet = struct.pack("!H", 13567) # Q ID
-        #640
-        self.packet += struct.pack("!H", 704) # Flags
+        self.packet += struct.pack("!H", 302) # Flags
         self.packet += struct.pack("!H", 1) # Questions
         self.packet += struct.pack("!H", 0) # Answers
         self.packet += struct.pack("!H", 0) # Authorities

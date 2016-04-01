@@ -33,6 +33,7 @@ class DNSResponse:
     """
     def create_packet(self, url, qID):
         self.packet = struct.pack("!H", qID) # Q ID
+        # Flags = 34240 if sending file (Z bit is being set)
         self.packet += struct.pack("!H", 34176) # Flags
         self.packet += struct.pack("!H", 1) # Questions
         self.packet += struct.pack("!H", 1) # Answers
