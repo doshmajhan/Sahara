@@ -18,6 +18,8 @@ class DNSQuery:
     def __init__(self, addr):
         self.addr = addr
         self.packet = None
+        self.qCount = None
+        self.answer = None
 
     """
         Packs data into a binary struct to send as a
@@ -40,8 +42,76 @@ class DNSQuery:
         self.packet += struct.pack("B", 0) # Terminate name
         self.packet += struct.pack("!H", 16) # Q TXT Type
         self.packet += struct.pack("!H", 1) # Q Class
+    
+    """
+        Decode the header of a DNS packet. First unpacks
+        the data in certain sections at a time, then performs
+        bitwise operations to get each field.
 
- 
+        query - the binary data received from the listening socket
+    """
+    def decode_header(self, query):
+        #Read the data from the header, 12 bytes in total
+        qID, flags, self.qCount, ansCount, \
+        authCount, addCount  = struct.unpack('!HHHHHH', query[:12])
+        qr = flags >> 15
+        opcode = (flags >> 11) & 0xf
+        aa = (flags >> 10) & 0x1
+        tc = (flags >> 9) & 0x1
+        rd = (flags >> 8) & 0x1
+        ra = (flags >> 7) & 0x1
+        z = (flags >> 6) & 0x1
+        ad = (flags >> 5) & 0x1
+        cd = (flags >> 4) & 0x1
+        rcode = flags & 0xf
+        
+        
+    """
+        Decode the domain name sent in the query, unpack
+        the first bit that tells the length of the name.
+        Then continue to read each char until the terminating zero.
+
+        query - the binary data received from the listening socket
+        offset - the number of bits to offset by when unpacking the query
+
+        returns - the new offset
+    """
+    def decode_name(self, query, offset):
+        tmp = []    # tmp list to join names
+        names =[]
+        while True:
+            #Get the length of the qName
+            length, = struct.unpack_from("!B", query, offset)
+            offset += 1
+            if length == 0:
+                break
+            #Read the name from the data and store
+            names += [struct.unpack_from("!%ds" % length, query, offset)]
+            offset += length
+            
+        return offset
+
+    """
+        Decode the question section of the DNS Query.
+        Loop for the number represented by qCount, and unpack
+        the data, calling decode_name each time. Creates a new entry
+        consisting of the name, type and class.
+
+        query - the binary data received from the listening socket
+        offset - the number of bits to offset by when unpacking the query
+    """
+    def decode_question(self, query, offset):
+        qFormat = struct.Struct("!HH")
+        self.decode_header(query)
+        i = 0
+        #Read and decode each question
+        for x in range(self.qCount):
+            offset = self.decode_name(query, offset)
+            qtype, qclass = qFormat.unpack_from(query, offset)
+            offset += 4
+            i+=1
+
+
 """
     Function to send DNS Query to custom server
 """
@@ -56,8 +126,8 @@ def send_query():
     print "Query sent"
     while True:
         s = sock.recv(2048)
-        print s
-
-
+        q.answer = s
+        q.decode_question(q.answer, 12)
+        
 if __name__ == '__main__':
     send_query()
