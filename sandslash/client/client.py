@@ -2,7 +2,7 @@
     File containing classes and functions recieve responses from our custom DNS server
     @author Dosh, JRoc
 """
-import struct, socket
+import struct, socket, sys
 
 """
     Class to represent a DNS Response and functions to build it
@@ -150,19 +150,22 @@ def send_query():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(q.packet), (addr, 53))
     print "Query sent"
-    while True:
-        s = sock.recv(2048)
-        q.answer = s
-        offset = q.decode_question(q.answer, 12)
-        q.decode_answer(q.answer, offset)
-        if q.data != None:
-            break
-        
-    # if data is a file, write to file
-    # reconstruct to move into function
     f = open("test.py", 'wb')
-    for c in q.data:
-        f.write(c)
+    while True:
+        try:
+            s = sock.recv(2048)
+            q.answer = s
+            offset = q.decode_question(q.answer, 12)
+            q.decode_answer(q.answer, offset)
+            if q.data != None:
+                # if data is a file, write to file
+                # reconstruct to move into function
+                for c in q.data:
+                    f.write(c)
+       
+        except (KeyboardInterrupt, SystemExit):
+            f.close()
+            sys.exit()
     f.close()
 
 if __name__ == '__main__':
