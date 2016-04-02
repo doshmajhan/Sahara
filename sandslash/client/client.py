@@ -158,6 +158,7 @@ def send_query():
             offset = q.decode_question(q.answer, 12)
             q.decode_answer(q.answer, offset)
             if q.data != None:
+                print q.data
                 # if data is a file, write to file
                 # reconstruct to move into function
                 for c in q.data:

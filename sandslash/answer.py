@@ -99,14 +99,24 @@ class DNSResponse:
         f - the name of the file to open
     """
     def load_file(self, f):
+        print "PACKET"
         f = open(f, 'rb')
-        self.packet += struct.pack("!H", self.fSize + 1) # RDLENGTH(file length) + txt length field
-        self.packet += struct.pack("B", self.fSize) # TXT Length(file length)
+        if self.frag:
+            if (self.fSize - self.curr) >= 255:
+                self.packet += struct.pack("!H", 256) #RDLENGTH max file length
+                self.packet += struct.pack("B", 255) #TXTLENGTH(file length)
+            else:
+                self.packet += struct.pack("!H", (self.fSize - self.curr) + 1)
+                self.packet += struct.pack("B", (self.fSize - self.curr))
+        else:
+            self.packet += struct.pack("!H", self.fSize + 1) # RDLENGTH(file length) + txt length field
+            self.packet += struct.pack("B", self.fSize) # TXT Length(file length)
         f.seek(self.curr)
         l = f.read(1)
         while l:
             if self.curr == 256:        # file to big, need to fragment
                 break
+            print l
             self.packet += struct.pack("c", l) # load each byte of the packet
             l = f.read(1)
             self.curr += 1
