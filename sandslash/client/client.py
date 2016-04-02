@@ -22,6 +22,7 @@ class DNSQuery:
         self.answer = None
         self.names = []
         self.data = ""
+        self.frag = False       # if the incoming packet is fragmented
 
     """
         Packs data into a binary struct to send as a
@@ -63,6 +64,7 @@ class DNSQuery:
         rd = (flags >> 8) & 0x1
         ra = (flags >> 7) & 0x1
         z = (flags >> 6) & 0x1
+        self.frag = True if int(z) == 1 else  False       
         ad = (flags >> 5) & 0x1
         cd = (flags >> 4) & 0x1
         rcode = flags & 0xf
@@ -121,6 +123,7 @@ class DNSQuery:
         offset - the number of bits to offset when unpacking the query
     """
     def decode_answer(self, query, offset):
+        self.data = "" # Reset data 
         offset = self.decode_name(query, offset) # decode names in question 
         aType = struct.unpack_from("!H", query, offset) # decode answer record type
         offset+=2
@@ -152,21 +155,18 @@ def send_query():
     print "Query sent"
     f = open("test.py", 'wb')
     while True:
-        try:
-            s = sock.recv(2048)
-            q.answer = s
-            offset = q.decode_question(q.answer, 12)
-            q.decode_answer(q.answer, offset)
-            if q.data != None:
-                print q.data
-                # if data is a file, write to file
-                # reconstruct to move into function
-                for c in q.data:
-                    f.write(c)
-       
-        except (KeyboardInterrupt, SystemExit):
-            f.close()
-            sys.exit()
+        s = sock.recv(2048)
+        q.answer = s
+        offset = q.decode_question(q.answer, 12)
+        q.decode_answer(q.answer, offset)
+        if q.data != None:
+            # if data is a file, write to file
+            # reconstruct to move into function
+            for c in q.data:
+                f.write(c)
+
+        if not q.frag: break
+        
     f.close()
 
 if __name__ == '__main__':

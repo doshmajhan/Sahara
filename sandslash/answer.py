@@ -109,6 +109,7 @@ class DNSResponse:
                 self.packet += struct.pack("B", 255) #TXTLENGTH(file length)
             # remaining data of the file
             else:
+                self.frag = False
                 self.packet += struct.pack("!H", self.fSize + 1) # RDLENGTH
                 self.packet += struct.pack("B", self.fSize) # TXTLENTH
         else:
@@ -125,6 +126,7 @@ class DNSResponse:
             self.red += 1
             self.curr += 1
         self.fSize -= self.red # remove number of bytes read from total size
+        print self.fSize
         self.red = 0           # reset number of bytes read to zero
         f.close()
         
@@ -138,13 +140,17 @@ class DNSResponse:
     txt - boolean value for if its a txt record or not
 """
 def send_response(addr, server, dnsQuery, txt):
+    packet_num = 1
     print "Sending response"
     response = DNSResponse(addr, txt, server)
     if response.fSize > 256:  # file is too large, needs to be fragmented
         response.frag = True  # notify response
         while response.frag:  # loop until packet is fully fragmented
+            if response.fSize <= 255: response.frag = False # last packet
             response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
             server.sock.sendto(bytes(response.packet), addr)
+            print "Sent packet %d..." % packet_num
+            packet_num += 1
     else:
         response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
         server.sock.sendto(bytes(response.packet), addr)
