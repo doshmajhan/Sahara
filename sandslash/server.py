@@ -26,6 +26,7 @@ class Server:
         self.beacons = []
         self.f = False
         self.fName = None
+        self.fSize = 0
 
     """
         Function to start the server with the information

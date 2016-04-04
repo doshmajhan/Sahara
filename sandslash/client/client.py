@@ -23,7 +23,7 @@ class DNSQuery:
         self.names = []
         self.data = ""
         self.frag = False       # if the incoming packet is fragmented
-
+        self.isFile = False     # if the incoming packet is a file
     """
         Packs data into a binary struct to send as a
         response to the original query.
@@ -64,7 +64,8 @@ class DNSQuery:
         rd = (flags >> 8) & 0x1
         ra = (flags >> 7) & 0x1
         z = (flags >> 6) & 0x1
-        self.frag = True if int(z) == 1 else  False       
+        self.frag = True if int(z) == 1 else False       
+        if int(z) == 1: self.isFile = True
         ad = (flags >> 5) & 0x1
         cd = (flags >> 4) & 0x1
         rcode = flags & 0xf
@@ -153,7 +154,7 @@ def send_query():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(q.packet), (addr, 53))
     print "Query sent"
-    f = open("test.py", 'wb')
+    f = open("output", 'wb')
     while True:
         s = sock.recv(2048)
         q.answer = s
@@ -166,7 +167,8 @@ def send_query():
                 f.write(c)
 
         if not q.frag: break
-        
+    
+    if not q.isFile: print q.data
     f.close()
 
 if __name__ == '__main__':

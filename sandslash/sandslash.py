@@ -57,14 +57,17 @@ def start_prompt():
                 s.load_command(cmd[1], db)  # retrieve command from database
             
             elif cmd[0] == "file":  # load file to be transfered
-                s.f = True
-                s.fName = cmd[1]
-                f = open(s.fName, 'rb')
-                f.seek(0, 2) # go to end of file
-                size = f.tell() # get size of file
-                f.seek(0) # back to start of file
-                f.close()
-                s.fSize = size
+                try:
+                    s.f = True
+                    s.fName = cmd[1]
+                    f = open(s.fName, 'rb')
+                    f.seek(0, 2) # go to end of file
+                    size = f.tell() # get size of file
+                    f.seek(0) # back to start of file
+                    f.close()
+                    s.fSize = size
+                except IOError:
+                    print "File failed to open"
 
 """
     Function to conenct to the servers sqlite3 backend
