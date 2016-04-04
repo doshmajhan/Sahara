@@ -148,27 +148,40 @@ class DNSQuery:
 def send_query():
     addr="129.21.130.212"
     domain="doshcloud.com"
-    print "Sending query"
+    #print "Sending query"
     q = DNSQuery(addr)
     q.create_query(domain)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(q.packet), (addr, 53))
-    print "Query sent"
-    f = open("output", 'wb')
+    #print "Query sent"
+    fName = "output"
+    f = open(fName, 'wb')
+    # change to only write to file when file is specified
     while True:
         s = sock.recv(2048)
         q.answer = s
         offset = q.decode_question(q.answer, 12)
         q.decode_answer(q.answer, offset)
         if q.data != None:
-            # if data is a file, write to file
-            # reconstruct to move into function
-            for c in q.data:
-                f.write(c)
+            if q.data[:4] == "file":
+                split_q = q.data.split()
+                fName = split_q[1]
+                f.close()
+                f = open(fName, 'wb')
+                q.frag = True
+            elif q.isFile:
+                # if data is a file, write to file
+                # reconstruct to move into function
+                for c in q.data:
+                    f.write(c)
 
         if not q.frag: break
     
-    if not q.isFile: print q.data
+    if not q.isFile: 
+        print q.data   # commands were sent
+    else:
+        print "file " + fName
+
     f.close()
 
 if __name__ == '__main__':

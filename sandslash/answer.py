@@ -104,9 +104,10 @@ class DNSResponse:
         f - the name of the file
     """
     def send_file_name(self, f):
-        self.packet += struct.pack("!H", len(f) + 1) #RDLENGTH length of file name
-        self.packet += struct.pack("!H", len(f)) #TXTLENGTH 
-        self.packet += ''.join(struct.pack("c", x) for x in f) # loop and store name
+        msg = "file " + f
+        self.packet += struct.pack("!H", len(msg) + 1) #RDLENGTH length of file name
+        self.packet += struct.pack("B", len(msg)) #TXTLENGTH 
+        self.packet += ''.join(struct.pack("c", x) for x in msg) # loop and store name
 
     """
         Loads the data from a file into the DNS packet,
@@ -141,7 +142,7 @@ class DNSResponse:
             self.red += 1
             self.curr += 1
         self.fSize -= self.red # remove number of bytes read from total size
-        print self.fSize
+        #print self.fSize
         self.red = 0           # reset number of bytes read to zero
         f.close()
         
