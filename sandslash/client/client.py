@@ -2,7 +2,7 @@
     File containing classes and functions recieve responses from our custom DNS server
     @author Dosh, JRoc
 """
-import struct, socket, sys
+import struct, socket, sys, argparse
 
 """
     Class to represent a DNS Response and functions to build it
@@ -24,6 +24,7 @@ class DNSQuery:
         self.data = ""
         self.frag = False       # if the incoming packet is fragmented
         self.isFile = False     # if the incoming packet is a file
+        self.isTxt = False      # if the incoming packet is a text file
     """
         Packs data into a binary struct to send as a
         response to the original query.
@@ -31,7 +32,7 @@ class DNSQuery:
         url - the address of the answer
         qID - the queryID of the origina query
     """
-    def create_query(self, url):
+    def create_query(self, url, record_type):
         self.packet = struct.pack("!H", 13567) # Q ID
         self.packet += struct.pack("!H", 302) # Flags
         self.packet += struct.pack("!H", 1) # Questions
@@ -43,7 +44,10 @@ class DNSQuery:
             self.packet += struct.pack("B", len(x)) # Store length of name
             self.packet += ''.join(struct.pack("c", byte) for byte in bytes(x)) # Loop & store name
         self.packet += struct.pack("B", 0) # Terminate name
-        self.packet += struct.pack("!H", 16) # Q TXT Type
+        if record_type == 'T':
+            self.packet += struct.pack("!H", 16) # Q TXT Type
+        else:
+            self.packet += struct.pack("!H", 1)  # Q A Type
         self.packet += struct.pack("!H", 1) # Q Class
     
     """
@@ -127,6 +131,7 @@ class DNSQuery:
         self.data = "" # Reset data 
         offset = self.decode_name(query, offset) # decode names in question 
         aType = struct.unpack_from("!H", query, offset) # decode answer record type
+        if int(aType[0]) == 16: self.isTxt = True
         offset+=2
         aClass = struct.unpack_from("!H", query, offset) # decode answer record class
         offset+=2
@@ -134,23 +139,29 @@ class DNSQuery:
         offset+=4
         rdlength = struct.unpack_from("!H", query, offset) # decode answer record rd length
         offset+=2
-        # make functional for all types of records later
-        txtLen = struct.unpack_from("B", query, offset) # decode answer record txt length
-        offset+=1
-        for x in range(0, int(txtLen[0])): # loop and decode the data in the txt section
-            self.data += struct.unpack_from("c", query, offset)[0]
-            offset += 1
+        if self.isTxt:
+            # make functional for all types of records later
+            txtLen = struct.unpack_from("B", query, offset) # decode answer record txt length
+            offset+=1
+            for x in range(0, int(txtLen[0])): # loop and decode the data in the txt section
+                self.data += struct.unpack_from("c", query, offset)[0]
+                offset += 1
+        else:
+            self.data += str(struct.unpack_from("I", query, offset)[0]) # A record sent
+            offset += 4
         
 
 """
     Function to send DNS Query to custom server
+
+    domain - the domain to query
+    record_type - the type of record to query for
 """
-def send_query():
+def send_query(domain, record_type):
     addr="129.21.130.212"
-    domain="doshcloud.com"
     #print "Sending query"
     q = DNSQuery(addr)
-    q.create_query(domain)
+    q.create_query(domain, record_type)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(q.packet), (addr, 53))
     #print "Query sent"
@@ -178,11 +189,15 @@ def send_query():
         if not q.frag: break
     
     if not q.isFile: 
-        print q.data   # commands were sent
+        print q.data   # commands were sent or A record was sent
     else:
         print "file " + fName
 
     f.close()
 
 if __name__ == '__main__':
-    send_query()
+    parser = argparse.ArgumentParser(description="Read in domain info")
+    parser.add_argument('domain', help="the domain to query")
+    parser.add_argument('-t', '--rtype', help="the type of record, defaults to A", default='A')
+    args = parser.parse_args()
+    send_query(args.domain, args.rtype)

