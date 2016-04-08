@@ -68,6 +68,12 @@ def start_prompt():
                     s.fSize = size
                 except IOError:
                     print "File failed to open"
+            elif cmd[0] == "interact":  # specify what beacon your giving commands to
+                if cmd[1] == "all":
+                    # send to all beacons
+                    s.sendAll = True
+                else:                   # send to specified beacon
+                    s.bList += [cmd[1]]
 
 """
     Function to conenct to the servers sqlite3 backend

@@ -147,8 +147,11 @@ class DNSQuery:
                 self.data += struct.unpack_from("c", query, offset)[0]
                 offset += 1
         else:
-            self.data += str(struct.unpack_from("I", query, offset)[0]) # A record sent
-            offset += 4
+            for x in range(0, int(rdlength[0])):
+                self.data += str(struct.unpack_from("B", query, offset)[0])
+                self.data += '.'
+                offset += 1
+            self.data = self.data[:-1]
         
 
 """
