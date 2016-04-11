@@ -9,7 +9,7 @@ f=false
 # Pull down commands from server
 pull(){
 
-    cmd=$(python client.py $domain -t T)
+    cmd=$(python client.py -t T $domain)
     first=$(echo $cmd | awk '{print $1}')
     if [[ $first == "file" ]]; then
         f=true

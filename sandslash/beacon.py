@@ -19,4 +19,5 @@ class Beacon:
         self.tag = tag
         self.strtime = strtime    
         self.realtime = realtime    # the last time the beacon checked in
-
+        self.cmds = []              # list of commands for this beacon to execute
+        self.f = None               # file to send to this beacon

