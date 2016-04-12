@@ -14,9 +14,10 @@ pull(){
     first=$(echo $cmd | awk '{print $1}')
     if [[ $first == "file" ]]; then
         f=true
-        fName=$(echo $cmd | awk '{print $2}')
+        fName=$(echo $cmd | awk '{print $2}' | base64 --decode)
         echo $fName
     else
+        cmd=$(echo $cmd | base64 --decode)
         $cmd
     fi
 }

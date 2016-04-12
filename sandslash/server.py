@@ -68,8 +68,9 @@ class Server:
         or a prepared command
 
         name - the name of the command to load
+        b - the tag of the beacon to interact with
     """
-    def load_command(self, name, db):
+    def load_command(self, name, db, b):
         c = db.cursor()
         c.execute("SELECT cmd from commands WHERE name=?", (name,))
         for cmd in c.fetchall(): 
@@ -77,7 +78,8 @@ class Server:
                 self.commands += [str(cmd[0])]
             else:
                 for x in self.bList:
-                    x.cmds += [str(cmd[0])]
+                    if x.tag == b:
+                        x.cmds += [str(cmd[0])]
     """
         Function to add a new beacon to the servers list of active beacons
 

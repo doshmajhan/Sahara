@@ -2,7 +2,7 @@
     File containing classes and functions recieve responses from our custom DNS server
     @author Dosh, JRoc
 """
-import struct, socket, sys, argparse
+import struct, socket, sys, argparse, base64
 
 """
     Class to represent a DNS Response and functions to build it
@@ -180,6 +180,7 @@ def send_query(domain, record_type):
             if q.data[:4] == "file":
                 split_q = q.data.split()
                 fName = split_q[1]
+                fName = base64.b64decode(fName)
                 f.close()
                 f = open(fName, 'wb')
                 q.frag = True
