@@ -87,11 +87,11 @@ class Server:
     """
     def add_beacon(self, addr):
         t = time.localtime()
-        strtime = (str(t.tm_hour), str(t.tm_min), str(t.tm_sec))
+        strtime = (str(t.tm_min), str(t.tm_sec))
         strtime = ":".join(strtime)
         newTag = 0
         for x in self.beacons:
             if x.tag == newTag:
                 newTag += 1
-        newB = beacon.Beacon(addr, newTag, strtime, (t.tm_hour, t.tm_min, t.tm_sec))
+        newB = beacon.Beacon(addr, newTag, strtime, (t.tm_min, t.tm_sec))
         self.beacons += [newB]

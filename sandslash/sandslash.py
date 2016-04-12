@@ -113,12 +113,11 @@ def init_db():
 def check_status(s):
     t = time.localtime()
     # go through and get the difference of when the beacon checked in till now
-    stats = [((t.tm_hour-b.realtime[0]), (t.tm_min-b.realtime[1]), \
-    (t.tm_sec)-b.realtime[2]) for b in s.beacons]
+    stats = [((t.tm_min-b.realtime[0]), (t.tm_sec-b.realtime[1])) for b in s.beacons]
     d = {}
     for b in s.beacons:
-        d.update({b.tag : "Alive  | %d hours %d minutes %d seconds ago" % \
-        (stats[b.tag][0], stats[b.tag][1], stats[b.tag][2])}) # add beacon to dictionary of entries
+        d.update({b.tag : "Alive  | %d minutes %d seconds ago" % \
+        (stats[b.tag][0], stats[b.tag][1])}) # add beacon to dictionary of entries
     return d
 
 """
