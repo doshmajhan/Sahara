@@ -3,7 +3,7 @@
     the DNS server and handle queries/repsonses
     @author Dosh, JRoc
 """
-import socket, threading, sys, sqlite3, time, zlib
+import socket, threading, sys, sqlite3, time
 import query, beacon
 
 """
