@@ -90,8 +90,12 @@ class Server:
         strtime = (str(t.tm_min), str(t.tm_sec))
         strtime = ":".join(strtime)
         newTag = 0
+        exists = False
         for x in self.beacons:
             if x.tag == newTag:
                 newTag += 1
-        newB = beacon.Beacon(addr, newTag, strtime, (t.tm_min, t.tm_sec))
-        self.beacons += [newB]
+            if x.ip == addr:
+                exists = True
+        if not exists:
+            newB = beacon.Beacon(addr, newTag, strtime, (t.tm_min, t.tm_sec))
+            self.beacons += [newB]

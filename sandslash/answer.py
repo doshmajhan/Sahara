@@ -2,7 +2,7 @@
     File containing classes and functions to handle a DNS Response
     @author Dosh, JRoc
 """
-import struct, base64
+import struct, base64, time
 
 """
     Class to represent a DNS Response and functions to build it
@@ -188,9 +188,15 @@ def send_response(addr, server, dnsQuery, txt):
     print "Sending response"
     chk = False
     if dnsQuery.checkin: 
-        for x in server.bList:
+        for x in server.beacons:
             if x.ip == addr[0]:
-                chk = True
+                t = time.localtime()        # update beacon checkin time
+                strtime = (str(t.tm_min), str(t.tm_sec))
+                strtime = ":".join(strtime)
+                x.strtime = strtime
+                x.realtime = (t.tm_min, t.tm_sec)
+                if x in server.bList:       # check if beacons has any commands
+                    chk = True
         if not chk:
             server.add_beacon(addr[0])
 
