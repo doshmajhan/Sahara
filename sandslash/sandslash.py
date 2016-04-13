@@ -114,16 +114,17 @@ def check_status(s):
     t = time.localtime()
     # go through and get the difference of when the beacon checked in till now
     stats = []  # list of current beacon times
+    print t
     for b in s.beacons:
-        temp = t.tm_sec
-        if temp < b.realtime[1]:
-            temp += 60
-        stats += [((t.tm_min-b.realtime[0]), (temp-b.realtime[1]))]
-
+        temp = ((int(t.tm_min) * 60) + int(t.tm_sec))
+        print b.realtime
+        stats += [(temp-b.realtime)]
+    print stats
     d = {}
     for b in s.beacons:
-        d.update({b.tag : "Alive  | %d minutes %d seconds ago" % \
-        (stats[b.tag][0], stats[b.tag][1])}) # add beacon to dictionary of entries
+        minute = stats[b.tag]/60
+        sec = stats[b.tag]%60
+        d.update({b.tag : "Alive  | %d minutes %d seconds ago" % (minute, sec)}) # add beacon to dictionary of entries
     return d
 
 """

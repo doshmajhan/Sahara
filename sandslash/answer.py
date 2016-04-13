@@ -194,7 +194,7 @@ def send_response(addr, server, dnsQuery, txt):
                 strtime = (str(t.tm_min), str(t.tm_sec))
                 strtime = ":".join(strtime)
                 x.strtime = strtime
-                x.realtime = (t.tm_min, t.tm_sec)
+                x.realtime = ((int(t.tm_min) * 60) +  int(t.tm_sec))
                 if x in server.bList:       # check if beacons has any commands
                     chk = True
         if not chk:

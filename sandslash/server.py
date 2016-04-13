@@ -97,5 +97,5 @@ class Server:
             if x.ip == addr:
                 exists = True
         if not exists:
-            newB = beacon.Beacon(addr, newTag, strtime, (t.tm_min, t.tm_sec))
+            newB = beacon.Beacon(addr, newTag, strtime, ((int(t.tm_min) * 60) + int(t.tm_sec)))
             self.beacons += [newB]
