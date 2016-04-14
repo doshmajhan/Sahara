@@ -21,4 +21,4 @@ class Beacon:
         self.realtime = realtime    # the last time the beacon checked in
         self.cmds = []              # list of commands for this beacon to execute
         self.f = None               # file to send to this beacon
-        self.output = ""            # info returned from the beacon
+        self.output = []            # info returned from the beacon

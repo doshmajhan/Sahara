@@ -93,10 +93,12 @@ def start_prompt():
             elif cmd[0] == "collect":   # collect output from a beacon
                 b = int(cmd[1])         # beacon tag
                 for x in s.beacons:
-                    decoded = base64.b64decode(x.output)    # decode beacons output
                     if b == x.tag:
-                        print "Beacon %d: %s" % (x.tag, decoded)
-                        x.output = ""
+                        print "Beacon %d: " % (x.tag)
+                        for i in x.output:
+                            decoded = base64.b64decode(i)    # decode beacons output
+                            print decoded
+                        x.output = []
 """
     Function to conenct to the servers sqlite3 backend
 

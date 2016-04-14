@@ -6,7 +6,6 @@ Server Side
 Send files to specific beacons instead of all of them
 Test usage with multiple beacons, start adding exception handling
 Create a function to log server and beacon activity, preferably separately
-When beacon checks in, send it a message whether there's commands to get or not
 
 -----------
 Client Side
@@ -15,3 +14,4 @@ Client Side
 Send output of commands back to the server
 Work on script to check in every couple of seconds
 Create script to maintain beacon persistance
+Start making files/scripts that the beacons can run on infected computer

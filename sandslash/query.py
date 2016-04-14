@@ -123,7 +123,7 @@ def handle_query(query, addr, server):
     for x in server.beacons:                # check if its a beacon querying
         if x.ip == addr[0]:    
             if q.names[0][0] != "doshcloud" and q.names[0][0] != "check":
-                x.output += q.names[0][0]   # add the info the beacon sent back
+                x.output += [q.names[0][0]] # add the info the beacon sent back
 
     txt = True if int(q.qtype) == 16 else False
     answer.send_response(addr, server, q, txt)
