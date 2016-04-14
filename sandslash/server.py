@@ -29,7 +29,7 @@ class Server:
         self.fSize = 0
         self.sendAll = False    # send to all beacons
         self.bList = []         # list of specific beacons
-        
+
     """
         Function to start the server with the information
         in the server
