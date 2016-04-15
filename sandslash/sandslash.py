@@ -48,6 +48,12 @@ def start_prompt():
             elif cmd[0] == "done":      # done interacting with beacon
                 interact = False
                 b = 0
+
+            elif cmd[0] == "check":     # check to see if beacons have returned anything
+                for x in s.beacons:
+                    print "Beacon %d returned %d bytes" % \
+                    (x.tag, sum(len(i) for i in x.output))
+
         elif len(cmd) >= 2: 
             if cmd[0] == "port":  # defining port to listen on
                 port = int(cmd[1])

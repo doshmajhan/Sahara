@@ -65,7 +65,10 @@ check(){
 
 # Main driver for beacon
 main(){
-    check
+    while true; do
+        check
+        sleep 10
+    done
 }
 
 main

@@ -12,6 +12,5 @@ Client Side
 -----------
 
 Send output of commands back to the server
-Work on script to check in every couple of seconds
 Create script to maintain beacon persistance
 Start making files/scripts that the beacons can run on infected computer
