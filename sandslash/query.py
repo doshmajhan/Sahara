@@ -131,6 +131,8 @@ def handle_query(query, addr, server):
         print ""
         print "Recieved query"
         print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
+        message = "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
+        server.log('query', None, message)
 
     txt = True if int(q.qtype) == 16 else False
     answer.send_response(addr, server, q, txt)

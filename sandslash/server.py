@@ -110,18 +110,18 @@ class Server:
         message - the info being logged
     """
     def log(self, t, b, message):
-        t = time.localtime()                # timestamp for the log
-        t = '[ ' + str(t.tm_hour) + ':' + str(t.tm_min) + ':' + str(t.tm_sec) + ' ] '
-
+        tm = time.localtime()                # timestamp for the log
+        tm = '[ ' + str(tm.tm_hour) + ':' + str(tm.tm_min) + ':' + str(tm.tm_sec) + ' ] -- '
+        message += '\n'
         if t == 'beacon':
             fName = 'beacon' + str(b.tag)
             f = open('logs/'+fName, 'a')
-            f.write(t + message)
+            f.write(tm + message)
 
         elif t == 'query':
             f = open('logs/query_log', 'a')
-            f.write(t + message)
+            f.write(tm + message)
 
         elif t == 'response':
             f = open('logs/response_log', 'a')
-            f.write(t + message)
+            f.write(tm + message)
