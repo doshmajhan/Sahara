@@ -40,10 +40,10 @@ def start_prompt():
             
             elif cmd[0] ==  "status":   # check the status of all the servers beacons
                 d = check_status(s)
-                print "=========================="
-                print "ID | STATUS | LAST CHECKIN"
-                print "=========================="
-                for key in d: print str(key) + "  | " + str(d[key])
+                print "[-] =========================="
+                print "[-] ID | STATUS | LAST CHECKIN"
+                print "[-] =========================="
+                for key in d: print "[-] " + str(key) + "  | " + str(d[key])
             
             elif cmd[0] == "done":      # done interacting with beacon
                 interact = False
@@ -51,7 +51,7 @@ def start_prompt():
 
             elif cmd[0] == "check":     # check to see if beacons have returned anything
                 for x in s.beacons:
-                    print "Beacon %d returned %d bytes" % \
+                    print "[-] Beacon %d returned %d bytes" % \
                     (x.tag, sum(len(i) for i in x.output))
 
         elif len(cmd) >= 2: 
@@ -67,7 +67,7 @@ def start_prompt():
                 if interact:
                     s.load_command(cmd[1], db, b)  # retrieve command from database
                 else:
-                    print "Error -- Choose to interact with specific beacon or all beacons"
+                    print "[x] Error -- Choose to interact with specific beacon or all beacons"
             
             elif cmd[0] == "file":  # load file to be transfered
                 if interact:
@@ -81,9 +81,9 @@ def start_prompt():
                         f.close()
                         s.fSize = size
                     except IOError:
-                        print "Error -- File failed to open"
+                        print "[x] Error -- File failed to open"
                 else:
-                    print "Error -- Choose to interact with specific beacon or all beacons"
+                    print "[x] Error -- Choose to interact with specific beacon or all beacons"
 
             elif cmd[0] == "interact":  # specify what beacon your giving commands to
                 interact = True
@@ -100,7 +100,7 @@ def start_prompt():
                 b = int(cmd[1])         # beacon tag
                 for x in s.beacons:
                     if b == x.tag:
-                        print "Beacon %d: " % (x.tag)
+                        print "[-] Beacon %d: " % (x.tag)
                         for i in x.output:
                             decoded = base64.b64decode(i)    # decode beacons output
                             print decoded
@@ -154,7 +154,7 @@ def start_server(port):
     server_thread.daemon=True
     try:
         server_thread.start()
-        print "Server listening on port %d" % port
+        print "[+] Server listening on port %d" % port
     except (KeyboardInterrupt, SystemExit):
         sys.exit()
     return s
@@ -163,6 +163,6 @@ def start_server(port):
     Main program to start the server and receive requests
 """
 if __name__ == "__main__":
-        print "- Starting prompt..."
+        print "[+] Starting prompt..."
         start_prompt()
         sys.exit()

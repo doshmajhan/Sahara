@@ -99,3 +99,29 @@ class Server:
         if not exists:
             newB = beacon.Beacon(addr, newTag, strtime, ((int(t.tm_min) * 60) + int(t.tm_sec)))
             self.beacons += [newB]
+
+
+    """
+        Function to log the actions that are happening with the server,
+        queries, responses, and beacons ouputs
+    
+        t - what type is being logged, response, query or beacon
+        b - the beacon being logged for if there is one
+        message - the info being logged
+    """
+    def log(self, t, b, message):
+        t = time.localtime()                # timestamp for the log
+        t = '[ ' + str(t.tm_hour) + ':' + str(t.tm_min) + ':' + str(t.tm_sec) + ' ] '
+
+        if t == 'beacon':
+            fName = 'beacon' + str(b.tag)
+            f = open('logs/'+fName, 'a')
+            f.write(t + message)
+
+        elif t == 'query':
+            f = open('logs/query_log', 'a')
+            f.write(t + message)
+
+        elif t == 'response':
+            f = open('logs/response_log', 'a')
+            f.write(t + message)
