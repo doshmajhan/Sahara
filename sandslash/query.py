@@ -126,6 +126,7 @@ def handle_query(query, addr, server):
                 x.output += [q.names[0][0]] # add the info the beacon sent back
             elif q.checkin:
                 print "Beacon %d checking in" % (x.tag)
+                server.log('beacon', x, "Beacon %d checking in" % x.tag)
     
     if not found: 
         print ""

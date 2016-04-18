@@ -92,6 +92,7 @@ class DNSResponse:
             else:
                 if self.sendAll:
                     full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
+                    self.server.log('response', None, 'SENDALL - ' + full)            # log the command being sent
                     full = base64.b64encode(full)
                     length = len(full)
                     self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
@@ -103,6 +104,7 @@ class DNSResponse:
                         if self.addr[0] == x.ip:  # beacon was in the list, send its commands
                             found = x
                             full = ';'.join(cmd for cmd in x.cmds) # concat commands with semicolon
+                            self.server.log('beacon', x, full)
                             full = base64.b64encode(full)
                             length = len(full)
                             self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
@@ -133,6 +135,7 @@ class DNSResponse:
     """
     def send_file_name(self, f):
         msg = "file " + f
+        self.server.log('response', None, msg)
         msg = base64.b64encode(msg)
         self.packet += struct.pack("!H", len(msg) + 1) #RDLENGTH length of file name
         self.packet += struct.pack("B", len(msg)) #TXTLENGTH 
@@ -223,6 +226,6 @@ def send_response(addr, server, dnsQuery, txt):
     else:
         response.create_packet(dnsQuery.fullNames[0], dnsQuery.qID)
         server.sock.sendto(bytes(response.packet), addr)
-
+    
     server.bList = response.beacons     # update list if any were removed
     #print "Response sent"
