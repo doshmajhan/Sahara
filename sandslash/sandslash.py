@@ -103,7 +103,7 @@ def start_prompt():
                         print "[-] Beacon %d: " % (x.tag)
                         for i in x.output:
                             decoded = base64.b64decode(i)    # decode beacons output
-                            print decoded
+                            s.log('beacon', x, "OUTPUT - " + decoded)
                         x.output = []
 """
     Function to conenct to the servers sqlite3 backend

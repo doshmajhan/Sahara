@@ -4,14 +4,13 @@
 #   if not it restarts it
 
 search(){
-    string="/bin/bash ./digg.sh"
-    output=$(ps aux | grep digg.sh)
+    string="/bin/bash ./digg"
+    output=$(ps aux | grep digg)
     if [[ $output == *$string* ]]; then
-        echo "found it"
+        echo "running"
     else
-        echo "not running"
         echo "starting back up"
-        /bin/bash digg.sh
+        /bin/bash digg
         echo "started"
     fi
 }
