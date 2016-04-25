@@ -96,15 +96,6 @@ def start_prompt():
                         if b == x.tag:
                             s.bList += [x]
 
-            elif cmd[0] == "collect":   # collect output from a beacon
-                b = int(cmd[1])         # beacon tag
-                for x in s.beacons:
-                    if b == x.tag:
-                        print "[-] Beacon %d: " % (x.tag)
-                        for i in x.output:
-                            decoded = base64.b64decode(i)    # decode beacons output
-                            s.log('beacon', x, "OUTPUT - " + decoded)
-                        x.output = []
 """
     Function to conenct to the servers sqlite3 backend
 
@@ -129,6 +120,7 @@ def check_status(s):
     t = time.localtime()
     # go through and get the difference of when the beacon checked in till now
     stats = []  # list of current beacon times
+    life = "Alive"
     for b in s.beacons:
         temp = ((int(t.tm_min) * 60) + int(t.tm_sec))
         stats += [(temp-b.realtime)]
@@ -136,8 +128,11 @@ def check_status(s):
     d = {}
     for b in s.beacons:
         minute = stats[b.tag]/60
+        if minute > 30:
+            life = "Dead"
         sec = stats[b.tag]%60
-        d.update({b.tag : "Alive  | %d minutes %d seconds ago" % (minute, sec)}) # add beacon to dictionary of entries
+        d.update({b.tag : "%s  | %d minutes %d seconds ago" % (life, minute, sec)}) # add beacon to dictionary of entries
+        life = "Alive"
     return d
 
 """
