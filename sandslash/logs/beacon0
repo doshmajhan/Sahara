@@ -63,3 +63,56 @@
 [ 19:41:47 ] -- Beacon 0 checking in
 [ 19:41:57 ] -- Beacon 0 checking in
 [ 19:41:57 ] -- shell
+[ 21:51:13 ] -- Beacon 0 checking in
+[ 21:51:23 ] -- Beacon 0 checking in
+[ 21:51:33 ] -- Beacon 0 checking in
+[ 21:51:33 ] -- cat /etc/passwd
+[ 21:58:30 ] -- Beacon 0 checking in
+[ 21:58:40 ] -- Beacon 0 checking in
+[ 21:58:40 ] -- cat /etc/passwd
+[ 21:58:40 ] -- OUTPUTroot:x:0:0:root:/root:/bin/bash bin:x:1:1:bin:/bin:/sbin/
+[ 21:58:40 ] -- OUTPUTnologin daemon:x:2:2:daemon:/sbin:/sbin/nologin adm:x:3:4
+[ 21:58:40 ] -- OUTPUT:adm:/var/adm:/sbin/nologin lp:x:4:7:lp:/var/spool/lpd:/s
+[ 21:58:40 ] -- OUTPUTbin/nologin sync:x:5:0:sync:/sbin:/bin/sync shutdown:x:6:
+[ 21:58:40 ] -- OUTPUT0:shutdown:/sbin:/sbin/shutdown halt:x:7:0:halt:/sbin:/sb
+[ 21:58:40 ] -- OUTPUTin/halt mail:x:8:12:mail:/var/spool/mail:/sbin/nologin op
+[ 21:58:40 ] -- OUTPUTerator:x:11:0:operator:/root:/sbin/nologin games:x:12:100
+[ 21:58:40 ] -- OUTPUT:games:/usr/games:/sbin/nologin ftp:x:14:50:FTP User:/var
+[ 21:58:40 ] -- OUTPUT/ftp:/sbin/nologin nobody:x:99:99:Nobody:/:/sbin/nologin 
+[ 21:58:40 ] -- OUTPUTavahi-autoipd:x:170:170:Avahi IPv4LL Stack:/var/lib/avahi
+[ 21:58:40 ] -- OUTPUT-autoipd:/sbin/nologin apache:x:48:48:Apache:/usr/share/h
+[ 21:58:40 ] -- OUTPUTttpd:/sbin/nologin systemd-timesync:x:999:998:systemd Tim
+[ 21:58:40 ] -- OUTPUTe Synchronization:/:/sbin/nologin systemd-network:x:998:9
+[ 21:58:40 ] -- OUTPUT97:systemd Network Management:/:/sbin/nologin systemd-res
+[ 21:58:40 ] -- OUTPUTolve:x:997:996:systemd Resolver:/:/sbin/nologin systemd-b
+[ 21:58:40 ] -- OUTPUTus-proxy:x:996:995:systemd Bus Proxy:/:/sbin/nologin dbus
+[ 21:58:40 ] -- OUTPUT:x:81:81:System message bus:/:/sbin/nologin polkitd:x:995
+[ 21:58:40 ] -- OUTPUT:994:User for polkitd:/:/sbin/nologin geoclue:x:994:993:U
+[ 21:58:40 ] -- OUTPUTser for geoclue:/var/lib/geoclue:/sbin/nologin colord:x:9
+[ 21:58:40 ] -- OUTPUT93:992:User for colord:/var/lib/colord:/sbin/nologin abrt
+[ 21:58:40 ] -- OUTPUT:x:173:173::/etc/abrt:/sbin/nologin saslauth:x:992:76:Sas
+[ 21:58:40 ] -- OUTPUTlauthd user:/run/saslauthd:/sbin/nologin chrony:x:991:989
+[ 21:58:41 ] -- OUTPUT::/var/lib/chrony:/sbin/nologin rtkit:x:172:172:RealtimeK
+[ 21:58:41 ] -- OUTPUTit:/proc:/sbin/nologin avahi:x:70:70:Avahi mDNS/DNS-SD St
+[ 21:58:41 ] -- OUTPUTack:/var/run/avahi-daemon:/sbin/nologin openvpn:x:990:988
+[ 21:58:41 ] -- OUTPUT:OpenVPN:/etc/openvpn:/sbin/nologin usbmuxd:x:113:113:usb
+[ 21:58:41 ] -- OUTPUTmuxd user:/:/sbin/nologin qemu:x:107:107:qemu user:/:/sbi
+[ 21:58:41 ] -- OUTPUTn/nologin unbound:x:989:987:Unbound DNS resolver:/etc/unb
+[ 21:58:41 ] -- OUTPUTound:/sbin/nologin radvd:x:75:75:radvd user:/:/sbin/nolog
+[ 21:58:41 ] -- OUTPUTin rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nolo
+[ 21:58:41 ] -- OUTPUTgin pulse:x:171:171:PulseAudio System Daemon:/var/run/pul
+[ 21:58:41 ] -- OUTPUTse:/sbin/nologin setroubleshoot:x:988:982::/var/lib/setro
+[ 21:58:41 ] -- OUTPUTubleshoot:/sbin/nologin gdm:x:42:42::/var/lib/gdm:/sbin/n
+[ 21:58:41 ] -- OUTPUTologin nm-openvpn:x:987:981:Default user for running open
+[ 21:58:41 ] -- OUTPUTvpn spawned by NetworkManager:/:/sbin/nologin rpcuser:x:2
+[ 21:58:41 ] -- OUTPUT9:29:RPC Service User:/var/lib/nfs:/sbin/nologin nfsnobod
+[ 21:58:41 ] -- OUTPUTy:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nol
+[ 21:58:41 ] -- OUTPUTogin gnome-initial-setup:x:986:980::/run/gnome-initial-se
+[ 21:58:41 ] -- OUTPUTtup/:/sbin/nologin nm-openconnect:x:985:979:NetworkManage
+[ 21:58:41 ] -- OUTPUTr user for OpenConnect:/:/sbin/nologin sshd:x:74:74:Privi
+[ 21:58:41 ] -- OUTPUTlege-separated SSH:/var/empty/sshd:/sbin/nologin tcpdump:
+[ 21:58:41 ] -- OUTPUTx:72:72::/:/sbin/nologin dosh:x:1000:1000:Doshmajhan:/hom
+[ 21:58:41 ] -- OUTPUTe/dosh:/bin/bash toranon:x:984:974:Tor anonymizing user:/
+[ 21:58:41 ] -- OUTPUTvar/lib/tor:/sbin/nologin
+
+[ 21:58:51 ] -- Beacon 0 checking in
