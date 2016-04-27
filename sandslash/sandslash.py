@@ -50,7 +50,7 @@ def start_prompt():
                 print "%s[-]%s ==========================" % (color.yellow, color.end)
                 print "%s[-]%s ID | STATUS | LAST CHECKIN" % (color.yellow, color.end)
                 print "%s[-]%s ==========================" % (color.yellow, color.end)
-                for key in d: print "%s[-]%s " + str(key) + "  | " + str(d[key]) % (color.yellow, color.end)
+                for key in d: print "%s[-]%s %s  | %s" % (color.yellow, color.end, str(key), str(d[key]))
             
             elif cmd[0] == "done":      # done interacting with beacon
                 interact = False

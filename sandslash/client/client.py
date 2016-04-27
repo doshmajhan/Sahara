@@ -159,14 +159,22 @@ class DNSQuery:
 
     domain - the domain to query
     record_type - the type of record to query for
+    local - the local DNS server to send to
 """
-def send_query(domain, record_type):
-    addr="129.21.130.212"
+def send_query(domain, record_type, local):
     #print "Sending query"
+    addr="129.21.130.212"
     q = DNSQuery(addr)
     q.create_query(domain, record_type)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.sendto(bytes(q.packet), (addr, 53))
+    try:
+        sock.sendto(bytes(q.packet), (addr, 53))
+    except Exception e:
+        try:
+            sock.sendto(bytes(q.packet), (local, 53))
+        except Exception e:
+            print "nxdomain"
+            sys.exit()
     #print "Query sent"
     fName = "output"
     f = open(fName, 'wb')
@@ -203,5 +211,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Read in domain info")
     parser.add_argument('domain', help="the domain to query")
     parser.add_argument('-t', '--rtype', help="the type of record, defaults to A", default='A')
+    parser.add_argument('-s', '--server', help="the local DNS server", default=0)
     args = parser.parse_args()
-    send_query(args.domain, args.rtype)
+    send_query(args.domain, args.rtype, args.server)
