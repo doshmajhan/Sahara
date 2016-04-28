@@ -1,0 +1,52 @@
+[ 15:58:30 ] -- Beacon 3 checking in
+[ 15:58:40 ] -- Beacon 3 checking in
+[ 15:58:50 ] -- Beacon 3 checking in
+[ 15:59:1 ] -- Beacon 3 checking in
+[ 15:59:12 ] -- Beacon 3 checking in
+[ 15:59:23 ] -- Beacon 3 checking in
+[ 15:59:34 ] -- Beacon 3 checking in
+[ 16:30:55 ] -- Beacon 3 checking in
+[ 16:31:5 ] -- Beacon 3 checking in
+[ 16:31:5 ] -- cat /etc/passwd
+[ 16:31:5 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:31:5 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:31:5 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:31:5 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:31:5 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:31:5 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:31:5 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:31:5 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:31:5 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:31:5 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:31:5 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:31:5 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:31:5 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:31:5 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:31:5 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:31:5 ] -- OUTPUT - ent:/usr/sbin/nologin libuuid:x:100:101::/var/lib/libuuid
+[ 16:31:5 ] -- OUTPUT - : syslog:x:101:104::/home/syslog:/bin/false messagebus:x:
+[ 16:31:5 ] -- OUTPUT - 102:106::/var/run/dbus:/bin/false usbmux:x:103:46:usbmux 
+[ 16:31:5 ] -- OUTPUT - daemon,,,:/home/usbmux:/bin/false dnsmasq:x:104:65534:dns
+[ 16:31:5 ] -- OUTPUT - masq,,,:/var/lib/misc:/bin/false avahi-autoipd:x:105:113:
+[ 16:31:5 ] -- OUTPUT - Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false 
+[ 16:31:5 ] -- OUTPUT - kernoops:x:106:65534:Kernel Oops Tracking Daemon,,,:/:/bi
+[ 16:31:5 ] -- OUTPUT - n/false rtkit:x:107:114:RealtimeKit,,,:/proc:/bin/false s
+[ 16:31:5 ] -- OUTPUT - aned:x:108:115::/home/saned:/bin/false whoopsie:x:109:116
+[ 16:31:5 ] -- OUTPUT - ::/nonexistent:/bin/false speech-dispatcher:x:110:29:Spee
+[ 16:31:5 ] -- OUTPUT - ch Dispatcher,,,:/var/run/speech-dispatcher:/bin/sh avahi
+[ 16:31:5 ] -- OUTPUT - :x:111:117:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bi
+[ 16:31:5 ] -- OUTPUT - n/false lightdm:x:112:118:Light Display Manager:/var/lib/
+[ 16:31:5 ] -- OUTPUT - lightdm:/bin/false colord:x:113:121:colord colour managem
+[ 16:31:5 ] -- OUTPUT - ent daemon,,,:/var/lib/colord:/bin/false hplip:x:114:7:HP
+[ 16:31:5 ] -- OUTPUT - LIP system user,,,:/var/run/hplip:/bin/false pulse:x:115:
+[ 16:31:6 ] -- OUTPUT - 122:PulseAudio daemon,,,:/var/run/pulse:/bin/false studen
+[ 16:31:6 ] -- OUTPUT - t:x:1000:1000:CSEC Student,,,:/home/student:/bin/bash
+
+[ 16:31:16 ] -- Beacon 3 checking in
+[ 16:31:26 ] -- Beacon 3 checking in
+[ 16:31:36 ] -- Beacon 3 checking in
+[ 16:31:36 ] -- echo lol
+[ 16:31:36 ] -- OUTPUT - lol
+
+[ 16:31:46 ] -- Beacon 3 checking in
+[ 16:31:56 ] -- Beacon 3 checking in

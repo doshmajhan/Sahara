@@ -1,0 +1,53 @@
+[ 15:58:18 ] -- Beacon 1 checking in
+[ 15:58:28 ] -- Beacon 1 checking in
+[ 15:58:38 ] -- Beacon 1 checking in
+[ 15:58:48 ] -- Beacon 1 checking in
+[ 15:58:58 ] -- Beacon 1 checking in
+[ 15:59:8 ] -- Beacon 1 checking in
+[ 15:59:18 ] -- Beacon 1 checking in
+[ 15:59:28 ] -- Beacon 1 checking in
+[ 16:30:38 ] -- Beacon 1 checking in
+[ 16:30:48 ] -- Beacon 1 checking in
+[ 16:30:58 ] -- Beacon 1 checking in
+[ 16:31:8 ] -- Beacon 1 checking in
+[ 16:31:8 ] -- cat /etc/passwd
+[ 16:31:8 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash bin:x:1:1:bin:/bin:/sbin/
+[ 16:31:8 ] -- OUTPUT - nologin daemon:x:2:2:daemon:/sbin:/sbin/nologin adm:x:3:4
+[ 16:31:8 ] -- OUTPUT - :adm:/var/adm:/sbin/nologin lp:x:4:7:lp:/var/spool/lpd:/s
+[ 16:31:8 ] -- OUTPUT - bin/nologin sync:x:5:0:sync:/sbin:/bin/sync shutdown:x:6:
+[ 16:31:8 ] -- OUTPUT - 0:shutdown:/sbin:/sbin/shutdown halt:x:7:0:halt:/sbin:/sb
+[ 16:31:8 ] -- OUTPUT - in/halt mail:x:8:12:mail:/var/spool/mail:/sbin/nologin op
+[ 16:31:8 ] -- OUTPUT - erator:x:11:0:operator:/root:/sbin/nologin games:x:12:100
+[ 16:31:8 ] -- OUTPUT - :games:/usr/games:/sbin/nologin ftp:x:14:50:FTP User:/var
+[ 16:31:8 ] -- OUTPUT - /ftp:/sbin/nologin nobody:x:99:99:Nobody:/:/sbin/nologin 
+[ 16:31:8 ] -- OUTPUT - dbus:x:81:81:System message bus:/:/sbin/nologin polkitd:x
+[ 16:31:8 ] -- OUTPUT - :999:998:User for polkitd:/:/sbin/nologin abrt:x:173:173:
+[ 16:31:8 ] -- OUTPUT - :/etc/abrt:/sbin/nologin unbound:x:998:996:Unbound DNS re
+[ 16:31:8 ] -- OUTPUT - solver:/etc/unbound:/sbin/nologin colord:x:997:995:User f
+[ 16:31:8 ] -- OUTPUT - or colord:/var/lib/colord:/sbin/nologin usbmuxd:x:113:113
+[ 16:31:9 ] -- OUTPUT - :usbmuxd user:/:/sbin/nologin ntp:x:38:38::/etc/ntp:/sbin
+[ 16:31:9 ] -- OUTPUT - /nologin avahi:x:70:70:Avahi mDNS/DNS-SD Stack:/var/run/a
+[ 16:31:9 ] -- OUTPUT - vahi-daemon:/sbin/nologin avahi-autoipd:x:170:170:Avahi I
+[ 16:31:9 ] -- OUTPUT - Pv4LL Stack:/var/lib/avahi-autoipd:/sbin/nologin saslauth
+[ 16:31:9 ] -- OUTPUT - :x:996:76:"Saslauthd user":/run/saslauthd:/sbin/nologin q
+[ 16:31:9 ] -- OUTPUT - emu:x:107:107:qemu user:/:/sbin/nologin libstoragemgmt:x:
+[ 16:31:9 ] -- OUTPUT - 995:994:daemon account for libstoragemgmt:/var/run/lsm:/s
+[ 16:31:9 ] -- OUTPUT - bin/nologin rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/
+[ 16:31:9 ] -- OUTPUT - sbin/nologin rpcuser:x:29:29:RPC Service User:/var/lib/nf
+[ 16:31:9 ] -- OUTPUT - s:/sbin/nologin nfsnobody:x:65534:65534:Anonymous NFS Use
+[ 16:31:9 ] -- OUTPUT - r:/var/lib/nfs:/sbin/nologin rtkit:x:172:172:RealtimeKit:
+[ 16:31:9 ] -- OUTPUT - /proc:/sbin/nologin radvd:x:75:75:radvd user:/:/sbin/nolo
+[ 16:31:9 ] -- OUTPUT - gin chrony:x:994:993::/var/lib/chrony:/sbin/nologin pulse
+[ 16:31:9 ] -- OUTPUT - :x:171:171:PulseAudio System Daemon:/var/run/pulse:/sbin/
+[ 16:31:9 ] -- OUTPUT - nologin gdm:x:42:42::/var/lib/gdm:/sbin/nologin gnome-ini
+[ 16:31:9 ] -- OUTPUT - tial-setup:x:993:991::/run/gnome-initial-setup/:/sbin/nol
+[ 16:31:9 ] -- OUTPUT - ogin postfix:x:89:89::/var/spool/postfix:/sbin/nologin ss
+[ 16:31:9 ] -- OUTPUT - hd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/
+[ 16:31:9 ] -- OUTPUT - nologin tcpdump:x:72:72::/:/sbin/nologin Student:x:1000:1
+[ 16:31:10 ] -- OUTPUT - 000:Student:/home/Student:/bin/bash
+
+[ 16:31:20 ] -- Beacon 1 checking in
+[ 16:31:31 ] -- Beacon 1 checking in
+[ 16:31:42 ] -- Beacon 1 checking in
+[ 16:31:52 ] -- Beacon 1 checking in
+[ 16:32:2 ] -- Beacon 1 checking in

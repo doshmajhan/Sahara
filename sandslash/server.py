@@ -27,7 +27,6 @@ class Server:
         self.f = False
         self.fName = None
         self.fSize = 0
-        self.sendAll = False    # send to all beacons
         self.bList = []         # list of specific beacons
 
     """
@@ -69,13 +68,16 @@ class Server:
 
         name - the name of the command to load
         b - the tag of the beacon to interact with
+        sendAll - if were sending to all beacons
     """
-    def load_command(self, name, db, b):
+    def load_command(self, name, db, b, sendAll):
         c = db.cursor()
         c.execute("SELECT cmd from commands WHERE name=?", (name,))
         for cmd in c.fetchall(): 
-            if self.sendAll:
-                self.commands += [str(cmd[0])]
+            if sendAll:
+                #self.commands += [str(cmd[0])]
+                for x in self.bList:
+                    x.cmds += [str(cmd[0])]
             else:
                 for x in self.bList:
                     if x.tag == b:

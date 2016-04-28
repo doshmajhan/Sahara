@@ -257,3 +257,348 @@
 [ 22:44:17 ] -- OUTPUT - 
 
 [ 22:44:27 ] -- Beacon 0 checking in
+[ 15:58:12 ] -- Beacon 0 checking in
+[ 15:58:22 ] -- Beacon 0 checking in
+[ 15:58:32 ] -- Beacon 0 checking in
+[ 15:58:42 ] -- Beacon 0 checking in
+[ 15:58:52 ] -- Beacon 0 checking in
+[ 15:59:2 ] -- Beacon 0 checking in
+[ 15:59:13 ] -- Beacon 0 checking in
+[ 15:59:23 ] -- Beacon 0 checking in
+[ 15:59:33 ] -- Beacon 0 checking in
+[ 16:6:46 ] -- Beacon 0 checking in
+[ 16:6:56 ] -- Beacon 0 checking in
+[ 16:7:6 ] -- Beacon 0 checking in
+[ 16:7:7 ] -- cat /etc/passwd
+[ 16:7:7 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:7:7 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:7:7 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:7:7 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:7:7 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:7:7 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:7:7 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:7:7 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:7:7 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:7:7 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:7:7 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:7:7 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:7:7 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:7:7 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:7:7 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:7:7 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:7:7 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:7:7 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:7:7 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:7:7 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:7:7 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:7:7 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:7:7 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:7:7 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:7:7 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:7:7 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:7:7 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:7:7 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:7:7 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:7:7 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:7:7 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:7:7 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:7:7 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:7:7 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:7:7 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:7:7 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:7:7 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:7:7 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:7:7 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:7:7 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:7:7 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:7:7 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:7:8 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:7:8 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:7:8 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:7:8 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:7:8 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:7:8 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:7:18 ] -- Beacon 0 checking in
+[ 16:7:28 ] -- Beacon 0 checking in
+[ 16:7:38 ] -- Beacon 0 checking in
+[ 16:10:53 ] -- Beacon 0 checking in
+[ 16:10:54 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:10:54 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:10:54 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:10:54 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:10:54 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:10:54 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:10:54 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:10:54 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:10:54 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:10:54 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:10:54 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:10:54 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:10:54 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:10:54 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:10:54 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:10:54 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:10:54 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:10:54 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:10:54 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:10:54 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:10:54 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:10:54 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:10:54 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:10:54 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:10:55 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:10:55 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:10:55 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:10:55 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:10:55 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:10:55 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:10:55 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:10:55 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:10:55 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:10:55 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:10:55 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:10:55 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:10:55 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:10:55 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:10:55 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:10:55 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:10:55 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:10:55 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:10:55 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:10:55 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:10:55 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:10:55 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:10:55 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:10:55 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:11:6 ] -- Beacon 0 checking in
+[ 16:11:6 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:11:6 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:11:6 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:11:6 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:11:6 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:11:6 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:11:6 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:11:6 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:11:6 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:11:6 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:11:6 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:11:6 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:11:6 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:11:6 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:11:6 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:11:6 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:11:6 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:11:6 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:11:6 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:11:6 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:11:6 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:11:6 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:11:7 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:11:7 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:11:7 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:11:7 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:11:7 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:11:7 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:11:7 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:11:7 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:11:7 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:11:7 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:11:7 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:11:7 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:11:7 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:11:7 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:11:7 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:11:7 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:11:7 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:11:7 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:11:7 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:11:7 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:11:7 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:11:7 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:11:7 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:11:8 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:11:8 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:11:8 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:19:3 ] -- Beacon 0 checking in
+[ 16:19:3 ] -- OUTPUT - 
+
+[ 16:19:13 ] -- Beacon 0 checking in
+[ 16:19:13 ] -- OUTPUT - 
+
+[ 16:19:23 ] -- Beacon 0 checking in
+[ 16:19:24 ] -- OUTPUT - 
+
+[ 16:22:15 ] -- Beacon 0 checking in
+[ 16:22:15 ] -- cat /etc/passwd
+[ 16:22:15 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:22:15 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:22:15 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:22:15 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:22:15 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:22:15 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:22:15 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:22:15 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:22:15 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:22:15 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:22:15 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:22:15 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:22:15 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:22:15 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:22:15 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:22:15 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:22:15 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:22:15 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:22:15 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:22:15 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:22:15 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:22:16 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:22:16 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:22:16 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:22:16 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:22:16 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:22:16 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:22:16 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:22:16 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:22:16 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:22:16 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:22:16 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:22:16 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:22:16 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:22:16 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:22:16 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:22:16 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:22:16 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:22:16 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:22:16 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:22:16 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:22:16 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:22:16 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:22:16 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:22:17 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:22:17 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:22:17 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:22:17 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:22:27 ] -- Beacon 0 checking in
+[ 16:22:27 ] -- OUTPUT - 
+
+[ 16:22:37 ] -- Beacon 0 checking in
+[ 16:22:37 ] -- OUTPUT - 
+
+[ 16:30:13 ] -- Beacon 0 checking in
+[ 16:30:13 ] -- cat /etc/passwd
+[ 16:30:13 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:30:13 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:30:13 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:30:13 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:30:13 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:30:13 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:30:13 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:30:13 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:30:13 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:30:13 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:30:14 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:30:14 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:30:14 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:30:14 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:30:14 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:30:14 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:30:14 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:30:14 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:30:14 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:30:14 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:30:14 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:30:14 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:30:14 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:30:14 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:30:14 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:30:14 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:30:14 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:30:14 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:30:14 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:30:14 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:30:14 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:30:14 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:30:14 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:30:15 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:30:15 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:30:15 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:30:15 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:30:15 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:30:15 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:30:15 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:30:15 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:30:15 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:30:15 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:30:15 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:30:15 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:30:15 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:30:15 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:30:15 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:30:25 ] -- Beacon 0 checking in
+[ 16:30:35 ] -- Beacon 0 checking in
+[ 16:30:45 ] -- Beacon 0 checking in
+[ 16:30:55 ] -- Beacon 0 checking in
+[ 16:31:5 ] -- Beacon 0 checking in
+[ 16:31:5 ] -- cat /etc/passwd
+[ 16:31:5 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 16:31:5 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 16:31:6 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 16:31:6 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 16:31:6 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 16:31:6 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 16:31:6 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 16:31:6 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 16:31:6 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 16:31:6 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 16:31:6 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 16:31:6 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 16:31:6 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 16:31:6 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 16:31:6 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 16:31:6 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 16:31:6 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 16:31:6 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 16:31:6 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 16:31:6 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 16:31:6 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 16:31:6 ] -- OUTPUT - mysql:x:104:109:MySQL Server,,,:/nonexistent:/bin/false m
+[ 16:31:6 ] -- OUTPUT - essagebus:x:105:110::/var/run/dbus:/bin/false avahi:x:106
+[ 16:31:6 ] -- OUTPUT - :112:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/fals
+[ 16:31:6 ] -- OUTPUT - e miredo:x:107:65534::/var/run/miredo:/bin/false ntp:x:10
+[ 16:31:7 ] -- OUTPUT - 8:114::/home/ntp:/bin/false stunnel4:x:109:116::/var/run/
+[ 16:31:7 ] -- OUTPUT - stunnel4:/bin/false uuidd:x:110:117::/run/uuidd:/bin/fals
+[ 16:31:7 ] -- OUTPUT - e Debian-exim:x:111:118::/var/spool/exim4:/bin/false stat
+[ 16:31:7 ] -- OUTPUT - d:x:112:65534::/var/lib/nfs:/bin/false arpwatch:x:113:121
+[ 16:31:7 ] -- OUTPUT - :ARP Watcher,,,:/var/lib/arpwatch:/bin/sh colord:x:114:12
+[ 16:31:7 ] -- OUTPUT - 3:colord colour management daemon,,,:/var/lib/colord:/bin
+[ 16:31:7 ] -- OUTPUT - /false dnsmasq:x:115:65534:dnsmasq,,,:/var/lib/misc:/bin/
+[ 16:31:7 ] -- OUTPUT - false dradis:x:116:125::/var/lib/dradis:/bin/false geoclu
+[ 16:31:7 ] -- OUTPUT - e:x:117:126::/var/lib/geoclue:/bin/false pulse:x:118:127:
+[ 16:31:7 ] -- OUTPUT - PulseAudio daemon,,,:/var/run/pulse:/bin/false speech-dis
+[ 16:31:7 ] -- OUTPUT - patcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dis
+[ 16:31:7 ] -- OUTPUT - patcher:/bin/sh sshd:x:120:65534::/var/run/sshd:/usr/sbin
+[ 16:31:7 ] -- OUTPUT - /nologin snmp:x:121:129::/var/lib/snmp:/usr/sbin/nologin 
+[ 16:31:7 ] -- OUTPUT - postgres:x:122:132:PostgreSQL administrator,,,:/var/lib/p
+[ 16:31:7 ] -- OUTPUT - ostgresql:/bin/bash iodine:x:123:65534::/var/run/iodine:/
+[ 16:31:7 ] -- OUTPUT - bin/false redis:x:124:135::/var/lib/redis:/bin/false reds
+[ 16:31:7 ] -- OUTPUT - ocks:x:125:136::/var/run/redsocks:/bin/false rwhod:x:126:
+[ 16:31:7 ] -- OUTPUT - 65534::/var/spool/rwho:/bin/false sslh:x:127:137::/nonexi
+[ 16:31:7 ] -- OUTPUT - stent:/bin/false rtkit:x:128:138:RealtimeKit,,,:/proc:/bi
+[ 16:31:7 ] -- OUTPUT - n/false saned:x:129:139::/var/lib/saned:/bin/false usbmux
+[ 16:31:7 ] -- OUTPUT - :x:130:46:usbmux daemon,,,:/var/lib/usbmux:/bin/false bee
+[ 16:31:7 ] -- OUTPUT - f-xss:x:131:140::/var/lib/beef-xss:/bin/false Debian-gdm:
+[ 16:31:7 ] -- OUTPUT - x:132:142:Gnome Display Manager:/var/lib/gdm3:/bin/false
+
+[ 16:31:18 ] -- Beacon 0 checking in
+[ 16:31:28 ] -- Beacon 0 checking in
+[ 16:31:38 ] -- Beacon 0 checking in
+[ 16:31:48 ] -- Beacon 0 checking in
+[ 16:31:48 ] -- echo boi
+[ 16:31:48 ] -- OUTPUT - boi
+
+[ 16:31:58 ] -- Beacon 0 checking in
