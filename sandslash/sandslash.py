@@ -59,6 +59,7 @@ def start_prompt():
             elif cmd[0] == "check":     # check to see if beacons have returned anything
                 for x in s.beacons:
                     print "%s[-]%s Beacon %d returned %d bytes" % (color.yellow, color.end, x.tag, x.output)
+                    x.output = 0
 
         elif len(cmd) >= 2: 
             if cmd[0] == "port":  # defining port to listen on

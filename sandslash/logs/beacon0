@@ -209,3 +209,51 @@
 [ 21:39:8 ] -- Beacon 0 checking in
 [ 21:39:19 ] -- Beacon 0 checking in
 [ 21:39:35 ] -- Beacon 0 checking in
+[ 21:39:38 ] -- Beacon 0 checking in
+[ 21:39:49 ] -- Beacon 0 checking in
+[ 21:39:49 ] -- cat /etc/passwd
+[ 21:39:49 ] -- OUTPUT - root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/
+[ 21:39:49 ] -- OUTPUT - sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nolog
+[ 21:39:49 ] -- OUTPUT - in sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sy
+[ 21:39:50 ] -- OUTPUT - nc:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin
+[ 21:39:50 ] -- OUTPUT - /nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin 
+[ 21:39:50 ] -- OUTPUT - lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:m
+[ 21:39:50 ] -- OUTPUT - ail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spoo
+[ 21:39:50 ] -- OUTPUT - l/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uuc
+[ 21:39:51 ] -- OUTPUT - p:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/no
+[ 21:39:51 ] -- OUTPUT - login www-data:x:33:33:www-data:/var/www:/usr/sbin/nologi
+[ 21:39:51 ] -- OUTPUT - n backup:x:34:34:backup:/var/backups:/usr/sbin/nologin li
+[ 21:39:51 ] -- OUTPUT - st:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nolog
+[ 21:39:51 ] -- OUTPUT - in irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats
+[ 21:39:52 ] -- OUTPUT - :x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnat
+[ 21:39:52 ] -- OUTPUT - s:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexist
+[ 21:39:52 ] -- OUTPUT - ent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd 
+[ 21:39:52 ] -- OUTPUT - Time Synchronization,,,:/run/systemd:/bin/false systemd-n
+[ 21:39:53 ] -- OUTPUT - etwork:x:101:104:systemd Network Management,,,:/run/syste
+[ 21:39:53 ] -- OUTPUT - md/netif:/bin/false systemd-resolve:x:102:105:systemd Res
+[ 21:39:53 ] -- OUTPUT - olver,,,:/run/systemd/resolve:/bin/false systemd-bus-prox
+[ 21:39:53 ] -- OUTPUT - y:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false 
+[ 21:39:53 ] -- OUTPUT - pi:x:1000:1000:,,,:/home/pi:/bin/bash sshd:x:104:65534::/
+[ 21:39:54 ] -- OUTPUT - var/run/sshd:/usr/sbin/nologin messagebus:x:105:110::/var
+[ 21:39:54 ] -- OUTPUT - /run/dbus:/bin/false avahi:x:106:111:Avahi mDNS daemon,,,
+[ 21:39:54 ] -- OUTPUT - :/var/run/avahi-daemon:/bin/false ntp:x:107:112::/home/nt
+[ 21:39:54 ] -- OUTPUT - p:/bin/false statd:x:108:65534::/var/lib/nfs:/bin/false l
+[ 21:39:54 ] -- OUTPUT - ightdm:x:109:114:Light Display Manager:/var/lib/lightdm:/
+[ 21:39:55 ] -- OUTPUT - bin/false xrdp:x:110:115::/var/run/xrdp:/bin/false bind:x
+[ 21:39:55 ] -- OUTPUT - :111:116::/var/cache/bind:/bin/false zoek:x:1001:1000::/h
+[ 21:39:55 ] -- OUTPUT - ome/zoek:/bin/bash aaron:x:1002:1000::/home/aaron:/bin/ba
+[ 21:39:55 ] -- OUTPUT - sh snort:x:112:117:Snort IDS:/var/log/snort:/bin/false ce
+[ 21:39:55 ] -- OUTPUT - nt:x:1004:0::/home/cent:/bin/bash mysql:x:113:119:MySQL S
+[ 21:39:56 ] -- OUTPUT - erver,,,:/nonexistent:/bin/false philb:x:1005:1005::/home
+[ 21:39:56 ] -- OUTPUT - /philb:/bin/bash
+
+[ 21:40:6 ] -- Beacon 0 checking in
+[ 21:40:16 ] -- Beacon 0 checking in
+[ 21:40:17 ] -- 
+[ 21:40:17 ] -- OUTPUT - 
+
+[ 22:44:17 ] -- Beacon 0 checking in
+[ 22:44:17 ] -- cab
+[ 22:44:17 ] -- OUTPUT - 
+
+[ 22:44:27 ] -- Beacon 0 checking in

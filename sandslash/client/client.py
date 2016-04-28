@@ -169,10 +169,10 @@ def send_query(domain, record_type, local):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         sock.sendto(bytes(q.packet), (addr, 53))
-    except Exception e:
+    except Exception:
         try:
             sock.sendto(bytes(q.packet), (local, 53))
-        except Exception e:
+        except Exception:
             print "nxdomain"
             sys.exit()
     #print "Query sent"
