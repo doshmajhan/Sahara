@@ -127,12 +127,12 @@ def handle_query(query, addr, server):
                 x.output += len(q.names[0][0])
                 server.log('beacon', x, "OUTPUT - " + base64.b64decode(q.names[0][0]))
             elif q.checkin:
-                print "Beacon %d checking in" % (x.tag)
+                #print "Beacon %d checking in" % (x.tag)
                 server.log('beacon', x, "Beacon %d checking in" % x.tag)
     
     if not found: 
         print ""
-        print "Recieved query"
+        print "Recieved query from %s" % (str(addr[0]))
         print "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
         message = "[Q Name : %s] [Q Type : %s] [Q Class : %s]" % (e["qName"], e["qType"], e["qClass"])
         server.log('query', None, message)

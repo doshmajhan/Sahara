@@ -163,7 +163,8 @@ class DNSQuery:
 """
 def send_query(domain, record_type, local):
     #print "Sending query"
-    addr="129.21.130.212"
+    #addr="129.21.130.212"
+    addr="10.2.16.16"
     q = DNSQuery(addr)
     q.create_query(domain, record_type)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

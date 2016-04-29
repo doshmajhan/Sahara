@@ -114,7 +114,8 @@ class DNSResponse:
                 self.packet += struct.pack("!I", 16843009)  # RDATA, IP address saying the beacon has cmds
             else:
                 self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
-                self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
+                #self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
+                self.packet += struct.pack("!I", 167907344)
         
 
     """

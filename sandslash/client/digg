@@ -5,8 +5,8 @@ domain="doshcloud.com"
 domain1="vaticancity.org"
 domain2="maine.gov"
 chkd="check."
-dnsServer="129.21.130.212"
-
+#dnsServer="129.21.130.212"
+dnsServer="10.2.16.16"
 # Get the local DNS server addresses
 get_dns(){
     servers=$(cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}')
