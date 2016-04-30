@@ -168,20 +168,35 @@ def send_query(domain, record_type, local):
     q = DNSQuery(addr)
     q.create_query(domain, record_type)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    try:
-        sock.sendto(bytes(q.packet), (addr, 53))
-    except Exception:
+    sock.settimeout(20)
+    if local == 0:
+        try:
+            sock.sendto(bytes(q.packet), (addr, 53))
+        except Exception:
+            print "nxdomain"
+            sys.exit()
+    else:    
         try:
             sock.sendto(bytes(q.packet), (local, 53))
         except Exception:
             print "nxdomain"
             sys.exit()
+
     #print "Query sent"
     fName = "output"
     f = open(fName, 'wb')
     # change to only write to file when file is specified
     while True:
-        s = sock.recv(2048)
+        try:
+            s = sock.recv(2048)
+        except socket.timeout:
+            if local != 0:
+                print "nxdomain"
+                sys.exit()
+            else:
+                print "local"
+                sys.exit()
+
         q.answer = s
         offset = q.decode_question(q.answer, 12)
         q.decode_answer(q.answer, offset)
