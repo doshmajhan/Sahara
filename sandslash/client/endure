@@ -7,11 +7,11 @@ search(){
     string="/bin/bash ./digg"
     output=$(ps aux | grep digg)
     if [[ $output == *$string* ]]; then
-        echo "running"
+        #echo "running"
     else
-        echo "starting back up"
+        #echo "starting back up"
         /bin/bash digg
-        echo "started"
+        #echo "started"
     fi
 }
 

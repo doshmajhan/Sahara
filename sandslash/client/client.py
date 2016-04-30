@@ -190,6 +190,7 @@ def send_query(domain, record_type, local):
         try:
             s = sock.recv(2048)
         except socket.timeout:
+            print "timeout"
             if local != 0:
                 print "nxdomain"
                 sys.exit()
