@@ -80,6 +80,7 @@ class DNSResponse:
         self.packet += struct.pack("!I", 1) # TTL 4 bytes
         if self.txt:    # load command
             if self.sendName:
+                print("sending file")
                 self.send_file_name(self.fName)
             elif self.f:
                 self.load_file(self.fName)
@@ -115,7 +116,7 @@ class DNSResponse:
             else:
                 self.packet += struct.pack("!H", 4) # RDLENGTH 2 bytes
                 #self.packet += struct.pack("!I", 2165670612)  # RDATA, should be IP address from A record
-                self.packet += struct.pack("!I", 167907344)
+                self.packet += struct.pack("!I", 1082779956)
         
 
     """
@@ -127,7 +128,7 @@ class DNSResponse:
     def send_file_name(self, f):
         msg = "file " + f
         self.server.log('response', None, msg)
-        msg = base64.b64encode(msg)
+        #msg = base64.b64encode(msg)
         self.packet += struct.pack("!H", len(msg) + 1) #RDLENGTH length of file name
         self.packet += struct.pack("B", len(msg)) #TXTLENGTH 
         self.packet += ''.join(struct.pack("c", x) for x in msg) # loop and store name

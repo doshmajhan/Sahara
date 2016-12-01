@@ -3,8 +3,7 @@
     create custom responses to queries. Used primarily 
     to control DNS Beacons.
 
-    @author Dosh, JRoc
-    github.com/doshmajhan/Sandshrew
+    @author Dosh
 """
 import threading, sys, sqlite3, time, base64
 import server
